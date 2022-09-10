@@ -22,6 +22,7 @@ export class AddPropertyComponent implements OnInit {
   PropertyType: Array<string> = ['House', 'Apartment', 'Duplex'];
   furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished'];
   property = new Property();
+  cityList: string[];
   propertyView: IPropertyBase = {
     id: null,
     Name: '',
@@ -32,7 +33,7 @@ export class AddPropertyComponent implements OnInit {
     BHK: null,
     RTM: null,
     builtArea: null,
-    city: null
+    city: ''
   };
 
   constructor(private fb: FormBuilder,
@@ -49,6 +50,7 @@ export class AddPropertyComponent implements OnInit {
     // } ),1000;
     this.CreateAddPropertyForm();
     this.housingService.getallcities().subscribe(data => {
+      this.cityList = data;
       console.log(data);
     })
     // this.housingService.getallcities().subscribe(
