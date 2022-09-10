@@ -1,0 +1,30 @@
+
+ <div class="row g-3">
+  <div class="col-sm-7">
+    <div class="d-flex" >
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"  [(ngModel)]='city'>
+        <button class="btn btn-outline-success"  (click)="onCityFilter()" type="button">Search</button>
+        <button class="btn btn-outline-danger ms-1" (click)="onCityFilterClear()" type="button">Clear</button>
+        <label class=" ms-2">Sort by &nbsp;</label>
+
+        <select class="form-select ms-2" [(ngModel)] = 'SortbyParam'  >
+           <option value="City">City</option>
+          <option value="Price">Price</option>
+         </select>
+         <button type="button"  class="btn btn-primary ms-2" (click) = "onSortDirection()">
+          <i *ngIf="SortDirection==='asc'" class="fas fa-sort-alpha-down"></i>
+          <i *ngIf="SortDirection==='desc'" class="fas fa-sort-alpha-up"></i>
+        </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+
+<div *ngFor="let  Property of Properties|filter:SearchCity:'city'|sort:[SortbyParam,SortDirection]" class="col-sm-4">
+  <app-property-card [property]="Property"></app-property-card>
+
+</div>
+</div>
+

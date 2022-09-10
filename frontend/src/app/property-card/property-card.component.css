@@ -1,0 +1,41 @@
+.img-weapper{
+  overflow: hidden;
+  position: relative;
+}
+.card-body h1{
+  font-family: fantasy;
+  color:#0069d9 ;
+}
+.font-highlight{
+font-style: italic;
+color: red;
+}
+.card img{
+transform: scale(1,1);
+transition-duration: 500ms;
+transition-timing-function: ease-out;
+height: 250px;
+}
+.card:hover img{
+  transform: scale(1.2,1.1);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+  height: 250px;
+  opacity: .5;
+  }
+.member-icons{
+position: absolute;
+left: 0;
+right: 0;
+ bottom: -10%;
+margin-right: auto;
+margin-left: auto;
+opacity: 0;
+}
+.img-weapper:hover .member-icons{
+  bottom: 0;
+  opacity: 1;
+}
+.animate{
+  transition: all 0.5s ease-in-out;
+}

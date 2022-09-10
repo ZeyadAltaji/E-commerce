@@ -1,0 +1,7 @@
+.dropdown-menu{
+  left: -6rem !important;
+}
+.dropdown-toggle{
+  text-decoration: none;
+  text-transform: capitalize;
+}

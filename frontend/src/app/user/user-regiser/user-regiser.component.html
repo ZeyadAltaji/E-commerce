@@ -1,0 +1,54 @@
+<div class="card text-center">
+  <div class="card-header">
+      Register
+  </div>
+  <div class="card-body">
+    <form class="row g-3" [formGroup]="registerationForm"(ngSubmit)="onSubmit()">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="userName" >
+        <span *ngIf="!userName.valid && (userName.touched || userSubmitted)" class="error-block"> please provide name</span>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="Email">
+        <span *ngIf="!Email.valid && Email.touched" class="error-block">
+          <span *ngIf="Email.hasError('required')">
+            please provide email id
+          </span>
+            <span *ngIf="Email.hasError('email')">
+              please provide valid email id
+        </span>
+        </span>
+      </div>
+      <div class="col-md-6">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" formControlName="password">
+        <span *ngIf="!password.valid && password.touched" class="error-block">
+        <span *ngIf="password.errors['required']">plases proviede password</span>
+        <span *ngIf="password.errors['minlength']">
+          plases should not lesser then 8 char
+        </span>
+        </span>
+      </div>
+      <div class="col-md-6">
+        <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" formControlName="confirmpassword" >
+        <span *ngIf="!confirmpassword.valid && confirmpassword.touched" class="error-block">
+          <span *ngIf="confirmpassword.hasError('required')" >plsese confirm password</span>
+          <span *ngIf="registerationForm.hasError('notmatched') && confirmpassword.valid"> password not matched</span>
+        </span>
+      </div>
+      <div class="col-md-6">
+        <label for="Mobile" class="form-label">Mobile</label>
+        <input type="text" class="form-control" formControlName="moblie" >
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="reset" class="btn btn-primary ms-3">Cancel</button>
+
+      </div>
+
+    </form>
+  </div>
+</div>
