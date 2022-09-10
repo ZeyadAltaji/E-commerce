@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild ,Input} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
+import { Observable } from 'rxjs';
 import { IPropertyBase } from '../model/IPropertyBase';
 import { Property } from '../model/property';
 import { AlertifyService } from '../services/alertify.service';
@@ -47,15 +48,18 @@ export class AddPropertyComponent implements OnInit {
 
     // } ),1000;
     this.CreateAddPropertyForm();
-    this.housingService.getallcities().subscribe(
+    this.housingService.getallcities().subscribe(data => {
+      console.log(data);
+    })
+    // this.housingService.getallcities().subscribe(
 
-      data => {
-        console.log(data)
-      }
-      ,error => {
-        console.log('facking no data !!!!!!!!');
-      }
-    )
+    //   data => {
+    //     console.log(data)
+    //   }
+    //   ,error => {
+    //     console.log('facking no data !!!!!!!!');
+    //   }
+    // )
 
   }
 

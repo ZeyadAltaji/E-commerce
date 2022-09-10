@@ -12,7 +12,7 @@ export class HousingService {
   constructor(private http: HttpClient) { }
 
   getallcities(): Observable<string[]> {
-    return this.http.get<string[]>('https://localhost:44398/api/City');
+    return this.http.get<string[]>('https://localhost:44369/api/City');
   }
   getprop(id: number) {
     return this.getallProp().pipe(

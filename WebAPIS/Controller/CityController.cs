@@ -16,5 +16,10 @@ namespace WebAPIS.Controller
         {
             return new string[] { "Amman", "jordan", "zeuad" };
         }
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "Amman";
+        }
     }
 }
