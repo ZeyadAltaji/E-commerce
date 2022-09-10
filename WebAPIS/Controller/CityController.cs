@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace WebAPIS.Controller
 {
-    public class CityController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CityController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]
+        public IEnumerable<string> Get()
         {
-            return View();
+            return new string[] { "Amman", "jordan", "zeuad" };
         }
     }
 }
