@@ -15,13 +15,11 @@ namespace WebAPIS.Controller
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly DataContext dc;
-        private readonly ICityReop reop;
-        public CityController(DataContext dc ,ICityReop reop)
+         private readonly ICityReop reop;
+        public CityController(ICityReop reop)
         {
             this.reop = reop;
-            this.dc = dc;
-        }
+         }
 
         [HttpGet]
        public async Task<IActionResult> Getcities()
@@ -29,37 +27,24 @@ namespace WebAPIS.Controller
             var cities =await reop.GetCitesAsync();
             return Ok(cities);
         }
-        //// post api/city/add?cityname=amman
-        //[HttpPost("add")]
-        //[HttpPost("add/{CityName}")]
-        //public async Task<IActionResult> AddCities(string CityName)
-        //{
-        //    City city = new City();
-        //    city.Name = CityName;
-        //    await dc.Cities.AddAsync(city);
-        //    await dc.SaveChangesAsync();
-        //    return Ok(city);
-        //}
         // post api/city/post --post the data in json format
 
-        [HttpPost("Post")]
+        [HttpPost("post")]
 
         public async Task<IActionResult> AddCities(City city)
         {
-            //City city = new City();
-            //city.Name = CityName;
-            await dc.Cities.AddAsync(city);
-            await dc.SaveChangesAsync();
-            return Ok(city);
+
+            reop.AddCity(city);
+            await reop.SaveAsync();
+            return StatusCode(201);
         }
         [HttpDelete("Delete/{id}")]
 
         public async Task<IActionResult> DeleteCities(int id)
         {
-            var city = await dc.Cities.FindAsync(id);
-            dc.Cities.Remove(city);
-             await dc.SaveChangesAsync();
-            return Ok(city);
+            reop.DeleteCity(id);
+             await reop.SaveAsync();
+            return Ok(id);
         }
     
     }
