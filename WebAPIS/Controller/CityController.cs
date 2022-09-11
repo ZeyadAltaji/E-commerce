@@ -28,6 +28,7 @@ namespace WebAPIS.Controller
         }
         // post api/city/add?cityname=amman
         [HttpPost("add")]
+        [HttpPost("add/{CityName}")]
         public async Task<IActionResult> AddCities(string CityName)
         {
             City city = new City();
@@ -36,5 +37,27 @@ namespace WebAPIS.Controller
             await dc.SaveChangesAsync();
             return Ok(city);
         }
+        // post api/city/post --post the data in json format
+
+        [HttpPost("Post")]
+
+        public async Task<IActionResult> AddCities(City city)
+        {
+            //City city = new City();
+            //city.Name = CityName;
+            await dc.Cities.AddAsync(city);
+            await dc.SaveChangesAsync();
+            return Ok(city);
+        }
+        [HttpDelete("Delete/{id}")]
+
+        public async Task<IActionResult> DeleteCities(int id)
+        {
+            var city = await dc.Cities.FindAsync(id);
+            dc.Cities.Remove(city);
+             await dc.SaveChangesAsync();
+            return Ok(city);
+        }
+    
     }
 }
