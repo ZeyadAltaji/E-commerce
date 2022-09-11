@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPIS.Data;
 using WebAPIS.Data.Reop;
+using WebAPIS.Interfaces;
 using WebAPIS.Models;
 
 namespace WebAPIS.Controller
@@ -15,11 +16,12 @@ namespace WebAPIS.Controller
     [ApiController]
     public class CityController : ControllerBase
     {
-         private readonly ICityReop reop;
-        public CityController(ICityReop reop)
+        private readonly IUnitOfWork uow;
+        public CityController(IUnitOfWork uow)
         {
-            this.reop = reop;
-         }
+            this.uow = uow;
+        }
+        
 
         [HttpGet]
        public async Task<IActionResult> Getcities()

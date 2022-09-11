@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPIS.Data;
 using WebAPIS.Data.Reop;
+using WebAPIS.Interfaces;
 
 namespace WebAPIS
 {
@@ -29,7 +30,7 @@ namespace WebAPIS
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddControllers();
             services.AddCors();
-            services.AddScoped<ICityReop, CityReop>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
