@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebAPIS.Interfaces
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork
     {
         ICityReop CityReop { get; }
         Task<bool> SaveAsync();
