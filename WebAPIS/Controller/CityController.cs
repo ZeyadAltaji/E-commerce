@@ -17,16 +17,20 @@ namespace WebAPIS.Controller
     public class CityController : ControllerBase
     {
         private readonly IUnitOfWork uow;
-        public CityController(IUnitOfWork uow)
+        public CityController (IUnitOfWork uow)
         {
             this.uow = uow;
         }
+        //public CityController( uow)
+        //{
+        //    this.uow = uow;
+        //}
         
 
         [HttpGet]
        public async Task<IActionResult> Getcities()
         {
-            var cities =await reop.GetCitesAsync();
+            var cities =await uow.CityReop.GetCitesAsync();
             return Ok(cities);
         }
         // post api/city/post --post the data in json format
@@ -36,16 +40,16 @@ namespace WebAPIS.Controller
         public async Task<IActionResult> AddCities(City city)
         {
 
-            reop.AddCity(city);
-            await reop.SaveAsync();
+            uow.CityReop.AddCity(city);
+            await uow.CityReop.SaveAsync();
             return StatusCode(201);
         }
         [HttpDelete("Delete/{id}")]
 
         public async Task<IActionResult> DeleteCities(int id)
         {
-            reop.DeleteCity(id);
-             await reop.SaveAsync();
+            uow.CityReop.DeleteCity(id);
+             await uow.SaveAsync();
             return Ok(id);
         }
     
