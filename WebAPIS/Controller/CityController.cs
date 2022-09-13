@@ -17,7 +17,7 @@ using WebAPIS.Models;
 namespace WebAPIS.Controller
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
     public class CityController : ControllerBase
     {
         private readonly IUnitOfWork uow;
@@ -42,6 +42,9 @@ namespace WebAPIS.Controller
         [HttpPost("post")]
         public async Task<IActionResult> AddCities(CitysDTOS citysDTOS)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var city = mapper.Map<City>(citysDTOS);
             city.LastUpdatedBy = 1;
             city.LastUpdatedOn = DateTime.Now;
