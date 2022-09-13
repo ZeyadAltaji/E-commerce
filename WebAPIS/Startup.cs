@@ -30,7 +30,7 @@ namespace WebAPIS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddCors();
             services.AddAutoMapper(typeof(AutomapperPropfiles).Assembly);
              //services.AddAutoMapper(typeof(AutomapperPropfiles).Assembly);

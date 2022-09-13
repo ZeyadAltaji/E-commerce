@@ -13,6 +13,8 @@ namespace WebAPIS.Helpers
         public AutomapperPropfiles()
         {
             CreateMap<City, CitysDTOS>().ReverseMap();
+            CreateMap<City, CitysUpdatedDTOS>().ReverseMap();
+
         }
     }
 }

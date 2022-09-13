@@ -9,6 +9,6 @@ namespace WebAPIS.DTOS
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string zeyad { get; set; }
+        public string Country { get; set; }
     }
 }
