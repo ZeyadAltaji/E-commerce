@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using WebAPIS.Data;
 using WebAPIS.Data.Reop;
 using WebAPIS.Interfaces;
+using AutoMapper;
+ using WebAPIS.Helpers;
 
 namespace WebAPIS
 {
@@ -30,6 +32,8 @@ namespace WebAPIS
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddControllers();
             services.AddCors();
+            services.AddAutoMapper(typeof(AutomapperPropfiles).Assembly);
+             //services.AddAutoMapper(typeof(AutomapperPropfiles).Assembly);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
