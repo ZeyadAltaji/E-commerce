@@ -17,7 +17,7 @@ using WebAPIS.Models;
 namespace WebAPIS.Controller
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class CityController : ControllerBase
     {
         private readonly IUnitOfWork uow;
@@ -56,12 +56,19 @@ namespace WebAPIS.Controller
         [HttpPut("updated/{ID}")]
         public async Task<IActionResult> UpdatedCities(int id,CitysDTOS citysDTOS)
         {
-            var CityFormDB = await uow.CityReop.FindCity(id);
-            CityFormDB.LastUpdatedBy = 1;
-            CityFormDB.LastUpdatedOn = DateTime.Now;
-            mapper.Map(citysDTOS, CityFormDB);
-            await uow.SaveAsync();
-            return this.StatusCode(200);
+           
+                if (id != citysDTOS.ID)
+                    return BadRequest("Update not allowd");
+                var CityFormDB = await uow.CityReop.FindCity(id);
+                if (CityFormDB == null)
+                    return BadRequest("Update not allowd");
+                CityFormDB.LastUpdatedBy = 1;
+                CityFormDB.LastUpdatedOn = DateTime.Now;
+                mapper.Map(citysDTOS, CityFormDB);
+                throw new Exception("Some Nnknown Error Occured");
+                await uow.SaveAsync();
+                return this.StatusCode(200);
+           
         }
 
         [HttpPatch("updated/{ID}")]
@@ -78,7 +85,10 @@ namespace WebAPIS.Controller
         [HttpPut("updatedCityID/{ID}")]
         public async Task<IActionResult> UpdatedCities(int id, CitysUpdatedDTOS cud)
         {
+            
             var CityFormDB = await uow.CityReop.FindCity(id);
+            if (CityFormDB == null)
+                return BadRequest("Update not allowd");
             CityFormDB.LastUpdatedBy = 1;
             CityFormDB.LastUpdatedOn = DateTime.Now;
             mapper.Map(cud, CityFormDB);
