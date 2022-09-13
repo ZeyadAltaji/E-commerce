@@ -46,12 +46,7 @@ namespace WebAPIS.Controller
             var city = mapper.Map<City>(citysDTOS);
             city.LastUpdatedBy = 1;
             city.LastUpdatedOn = DateTime.Now;
-            //var city = new City
-            //{
-            //    Name = citysDTOS.Name,
-            //    LastUpdatedBy = 1,
-            //    LastUpdatedOn = DateTime.Now
-            //}; 
+           
 
             uow.CityReop.AddCity(city);
             await uow.CityReop.SaveAsync();
