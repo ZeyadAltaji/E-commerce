@@ -16,7 +16,7 @@ namespace WebAPIS.Data
         }
         public ICityReop CityReop => new CityReop(dc);
 
-        public IUserReop userReop => new UsersReop(dc);
+        public IUserReop UserRepository => new UsersReop(dc);
 
         public async Task<bool> SaveAsync()
         {

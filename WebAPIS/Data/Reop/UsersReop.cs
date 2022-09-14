@@ -17,8 +17,7 @@ namespace WebAPIS.Data.Reop
         }
         public async Task<User> Authenticate(string userName, string password)
         {
-            return await dc.Users.FirstOrDefaultAsync(x => x.UserName == userName 
-            && x.Password ==password);
+            return await dc.Users.FirstOrDefaultAsync(x => x.UserName == userName && x.Password == password);
         }
     }
 }
