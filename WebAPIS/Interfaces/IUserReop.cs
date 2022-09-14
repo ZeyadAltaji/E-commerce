@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPIS.Models;
 
 namespace WebAPIS.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUserReop
     {
-        ICityReop CityReop { get; }
-        IUserReop userReop { get; }
-        Task<bool> SaveAsync();
+        Task<User> Authenticate(string userName, string password);
     }
 }

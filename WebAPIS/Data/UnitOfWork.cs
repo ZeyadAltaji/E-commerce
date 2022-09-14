@@ -16,6 +16,8 @@ namespace WebAPIS.Data
         }
         public ICityReop CityReop => new CityReop(dc);
 
+        public IUserReop userReop => new UsersReop(dc);
+
         public async Task<bool> SaveAsync()
         {
             return await dc.SaveChangesAsync()>0;
