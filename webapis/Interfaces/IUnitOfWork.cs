@@ -8,6 +8,7 @@ namespace WebAPIS.Interfaces
     public interface IUnitOfWork
     {
         ICityReop CityReop { get; }
+        IUserReop UserRepository { get; }
         Task<bool> SaveAsync();
     }
 }
