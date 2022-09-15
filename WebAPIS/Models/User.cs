@@ -12,6 +12,9 @@ namespace WebAPIS.Models
         
         public string UserName { get; set; }
       
-        public int Password { get; set; }
+        public byte[] Password { get; set; }
+
+        public byte[] PasswordKey { get; set; }
+
     }
 }
