@@ -6,6 +6,16 @@ namespace WebAPIS.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql(@"UPDATE [dbo].[Cities] SET [country]='USA' WHERE [country] IS NULL");
+
+            migrationBuilder.AlterColumn<string>(
+               name: "Country",
+               table: "Cities",
+               nullable: false,
+               oldClrType: typeof(string),
+               oldType: "nvarchar(max)",
+               oldNullable: true);
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new

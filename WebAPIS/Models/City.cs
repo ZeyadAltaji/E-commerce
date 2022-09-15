@@ -9,11 +9,7 @@ namespace WebAPIS.Models
     public class City
     {
         public int ID { get; set; }
-
-
-         
         public string Name { get; set; }
-     
         public string country { get; set; }
         public DateTime LastUpdatedOn{ get; set; }
         public int LastUpdatedBy { get; set; }

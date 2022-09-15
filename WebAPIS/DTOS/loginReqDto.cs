@@ -8,6 +8,6 @@ namespace WebAPIS.DTOS
     public class loginReqDto
     {
         public string UserName { get; set; }
-        public string Password { get; set; }
+        public int Password { get; set; }
     }
 }

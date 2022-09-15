@@ -8,6 +8,6 @@ namespace WebAPIS.Interfaces
 {
     public interface IUserReop
     {
-        Task<User> Authenticate(string userName, string password);
+        Task<User> Authenticate(string userName, int password);
     }
 }

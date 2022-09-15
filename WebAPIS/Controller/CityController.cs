@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ namespace WebAPIS.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CityController : ControllerBase
     {
         private readonly IUnitOfWork uow;
@@ -30,6 +32,7 @@ namespace WebAPIS.Controller
         }
    
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Getcities()
         { 
                 var cities =await uow.CityReop.GetCitesAsync();
@@ -60,8 +63,10 @@ namespace WebAPIS.Controller
                 if (id != citysDTOS.ID)
                     return BadRequest("Update not allowd");
                 var CityFormDB = await uow.CityReop.FindCity(id);
+
                 if (CityFormDB == null)
                     return BadRequest("Update not allowd");
+
                 CityFormDB.LastUpdatedBy = 1;
                 CityFormDB.LastUpdatedOn = DateTime.Now;
                 mapper.Map(citysDTOS, CityFormDB);
