@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebAPIS.Models
 {
-    public class User
+    public class User : BaseEntity
     {
-        public int ID { get; set; }
-        
+        [Required]
         public string UserName { get; set; }
-      
+        [Required]
         public byte[] Password { get; set; }
 
         public byte[] PasswordKey { get; set; }

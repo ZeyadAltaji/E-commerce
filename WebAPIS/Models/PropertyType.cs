@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebAPIS.Models
 {
-    public class City : BaseEntity
+    public class PropertyType : BaseEntity
     {
-   
-        public string Name { get; set; }
-        [Required]
-        public string country { get; set; }
  
+
+        [Required]
+        public string Name { get; set; }
     }
 }
