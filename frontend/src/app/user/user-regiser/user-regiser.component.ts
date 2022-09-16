@@ -71,14 +71,17 @@ export class UserRegiserComponent implements OnInit {
         this.onReset();
         this.alertify.success('Registeration successfully ')
 
-      }, error =>
-      {
-        console.log(error);
-        this.alertify.error(error.error)
-      });
-    } else {
-
+      }
+      //   , error =>
+      // {
+      //   console.log(error);
+      //   this.alertify.error(error.error)
+      //   }
+      );
     }
+    // else {
+
+    // }
 
   }
   onReset() {

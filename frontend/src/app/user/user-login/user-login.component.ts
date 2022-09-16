@@ -28,10 +28,12 @@ export class UserLoginComponent implements OnInit {
 
         this.alertify.success('login successfully');
         this.route.navigate(['/'])
-      }, error => {
-        console.log(error);
-        this.alertify.error(error.error)
+
       }
+        //, error => {
+      //   console.log(error);
+      //   this.alertify.error(error.error)
+      // }
 
     );
     // const token = this.authService.authUser(loginForm.value);
