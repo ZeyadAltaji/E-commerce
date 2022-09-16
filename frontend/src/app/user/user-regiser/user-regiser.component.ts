@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserServiceService } from 'src/app/services/User-service.service';
-import { AlertifyService } from 'src/app/services/alertify.service';
-import { User} from 'src/app/model/user'
+ import { AlertifyService } from 'src/app/services/alertify.service';
+import { UserForRegister} from 'src/app/model/user'
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-user-regiser',
   templateUrl: './user-regiser.component.html',
@@ -11,9 +11,9 @@ import { User} from 'src/app/model/user'
 export class UserRegiserComponent implements OnInit {
 
   registerationForm: FormGroup;
-  user: User;
+  user: UserForRegister;
   userSubmitted: boolean;
-  constructor(private fb: FormBuilder, private userService: UserServiceService,
+  constructor(private fb: FormBuilder, private authservice: AuthService,
     private alertify: AlertifyService) { }
 
   ngOnInit() {
@@ -66,16 +66,27 @@ export class UserRegiserComponent implements OnInit {
     console.log(this.registerationForm);
     if (this.registerationForm.valid) {
       // this.user = Object.assign(this.user, this.registerationForm.value);
-      this.userService.addUser(this.userData());
-      this.registerationForm.reset(); //note
-      this.userSubmitted = false;
-      this.alertify.success('login successfully ')
+      this.authservice.RegisterUser(this.userData()).subscribe(() =>
+      {
+        this.onReset();
+        this.alertify.success('Registeration successfully ')
+
+      }, error =>
+      {
+        console.log(error);
+        this.alertify.error(error.error)
+      });
     } else {
-        this.alertify.error('login Errors')
+
     }
 
   }
-  userData(): User {
+  onReset() {
+    this.userSubmitted = false;
+    this.registerationForm.reset(); //note
+
+  }
+  userData(): UserForRegister {
     return this.user = {
       userName: this.userName.value,
       Email: this.Email.value,
