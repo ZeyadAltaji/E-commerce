@@ -5,10 +5,10 @@ export interface IPropertyBase {
   Ptype: string;
   Ftype: string;
   price: number;
-  Image?: string;
   BHK: number;
-  RTM: number;
+  ReadyToMove: boolean;
   builtArea: number;
   city: string;
-  // readyToMove: boolean;
+  Image?: string;
+  estPossessionOn?: string;
 }

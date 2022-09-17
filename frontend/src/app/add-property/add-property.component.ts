@@ -31,9 +31,10 @@ export class AddPropertyComponent implements OnInit {
     Ftype: null,
     Ptype: null,
     BHK: null,
-    RTM: null,
+
     builtArea: null,
-    city: ''
+    city: '',
+    ReadyToMove: null
   };
 
   constructor(private fb: FormBuilder,
@@ -138,7 +139,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.totalFloors = this.TotalFloors.value;
     this.property.address = this.address.value;
     this.property.address2 = this.landMark.value;
-    this.property.RTM = this.RTM.value;
+    this.property.ReadyToMove = this.readyToMove.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.maintenance.value;
     this.property.estPossessionOn =
@@ -256,7 +257,7 @@ get landMark() {
     return this.AddressInfo.controls['LandMark'] as FormControl;
 }
 
-get RTM() {
+get readyToMove() {
     return this.OtherInfo.controls['RTM'] as FormControl;
 }
 

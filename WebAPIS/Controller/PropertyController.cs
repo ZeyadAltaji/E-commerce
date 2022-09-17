@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPIS.DTOS;
 using WebAPIS.Interfaces;
 
 namespace WebAPIS.Controller
@@ -13,8 +15,10 @@ namespace WebAPIS.Controller
     public class PropertyController : BaseController
     {
         private readonly IUnitOfWork uow;
-        public PropertyController (IUnitOfWork uow)
+        private readonly IMapper mapper;
+        public PropertyController (IUnitOfWork uow ,IMapper mapper)
         {
+            this.mapper = mapper;
             this.uow = uow;
         }
         [HttpGet("Type/{SellRent}")]
@@ -23,7 +27,8 @@ namespace WebAPIS.Controller
         public async Task<IActionResult> GetPropertyList(int SellRent)
         {
             var prop= await uow.propertyRepository.GetPropertiesAsync(SellRent);
-            return Ok(prop);
+            var proplistDTO = mapper.Map<IEnumerable<PropertyListDto>>(prop);
+            return Ok(proplistDTO);
         }
     }
 }

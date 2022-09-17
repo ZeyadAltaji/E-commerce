@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPIS.Interfaces;
 using WebAPIS.Models;
+using System.Linq;
 
 namespace WebAPIS.Data.Reop
 {
@@ -27,7 +28,11 @@ namespace WebAPIS.Data.Reop
 
         public async Task<IEnumerable<Property>> GetPropertiesAsync(int SellRent)
         {
-            var prop = await dc.Properties.ToListAsync();
+            var prop = await dc.Properties
+            .Include(p=>p.Ptype)
+            .Include(p => p.city)
+            .Include(p => p.Ftype)
+            .Where(p =>p.SellRent ==SellRent ).ToListAsync();
             return prop;
         }
     }
