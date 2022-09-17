@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace WebAPIS.Controller
 {
-   
+    [Route("api/[controller]")]
+    [ApiController]
     public class BaseController : ControllerBase
-
     {
     }
 }
