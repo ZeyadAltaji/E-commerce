@@ -1,17 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace WebAPIS.Migrations
-{
-    public partial class seedDemoData : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
-                DECLARE @UserID as INT
+﻿ DECLARE @UserID as INT
                 --------------------------
                 --Create User
                 --------------------------
-                IF not exists (select ID from Users where Username='Demo')
+                IF not exists (select Id from Users where Username='Demo')
                 insert into Users(Username,Password, PasswordKey,LastUpdatedOn,LastUpdatedBy)
                 select 'Demo',
                 0x4D5544D09B8319B423F6D4E054360D5289B57A98781A66B276E00C57919FDCD599BF45623D48CC81F535748F560AF0F70C8C7F3B4C3DB672562B5DD0E5E7C297,
@@ -19,20 +10,20 @@ namespace WebAPIS.Migrations
                 getdate(),
                 0
 
-                SET @UserID = (select ID from Users where Username='Demo')
+                SET @UserID = (select id from Users where Username='Demo')
 
                 --------------------------
                 --Seed Property Types
                 --------------------------
-                IF not exists (select Name from PropertyTypes where Name='House')
+                IF not exists (select name from PropertyTypes where Name='House')
                 insert into PropertyTypes(Name,LastUpdatedOn,LastUpdatedBy)
                 select 'House', GETDATE(),@UserID
 
-                IF not exists (select Name from PropertyTypes where Name='Apartment')
+                IF not exists (select name from PropertyTypes where Name='Apartment')
                 insert into PropertyTypes(Name,LastUpdatedOn,LastUpdatedBy)
                 select 'Apartment', GETDATE(),@UserID
                     
-                IF not exists (select Name from PropertyTypes where Name='Duplex')
+                IF not exists (select name from PropertyTypes where Name='Duplex')
                 insert into PropertyTypes(Name,LastUpdatedOn,LastUpdatedBy)
                 select 'Duplex', GETDATE(),@UserID
 
@@ -40,22 +31,22 @@ namespace WebAPIS.Migrations
                 --------------------------
                 --Seed Furnishing Types
                 --------------------------
-                IF not exists (select Name from FurnishingTypes where Name='Fully')
+                IF not exists (select name from FurnishingTypes where Name='Fully')
                 insert into FurnishingTypes(Name, LastUpdatedOn, LastUpdatedBy)
                 select 'Fully', GETDATE(),@UserID
                     
-                IF not exists (select Name from FurnishingTypes where Name='Semi')
+                IF not exists (select name from FurnishingTypes where Name='Semi')
                 insert into FurnishingTypes(Name, LastUpdatedOn, LastUpdatedBy)
                 select 'Semi', GETDATE(),@UserID
                     
-                IF not exists (select Name from FurnishingTypes where Name='Unfurnished')
+                IF not exists (select name from FurnishingTypes where Name='Unfurnished')
                 insert into FurnishingTypes(Name, LastUpdatedOn, LastUpdatedBy)
                 select 'Unfurnished', GETDATE(),@UserID
 
                 --------------------------
                 --Seed Cities
                 --------------------------
-                IF not exists (select top 1 ID from Cities)
+                IF not exists (select top 1 id from Cities)
                 Insert into Cities(Name,LastUpdatedBy,LastUpdatedOn,Country)
                 select 'New York',@UserID,getdate(),'USA'
                 union
@@ -71,21 +62,21 @@ namespace WebAPIS.Migrations
                 --Seed Properties
                 --------------------------
                 --Seed property for sell
-                IF not exists (select top 1 Name from Properties where Name='White House Demo')
+                IF not exists (select top 1 name from Properties where Name='White House Demo')
                 insert into Properties(SellRent,Name,PropertyTypeId,BHK,FurnishingTypeId,Price,BuiltArea,CarpetArea,Address,
                 Address2,CityId,FloorNo,TotalFloors,ReadyToMove,MainEntrance,Security,Gated,Maintenance,EstPossessionOn,Age,Description,PostedOn,PostedBy,LastUpdatedOn,LastUpdatedBy)
                 select 
                 1, --Sell Rent
                 'White House Demo', --Name
-                (select ID from PropertyTypes where Name='Apartment'), --Property Type ID
+                (select Id from PropertyTypes where Name='Apartment'), --Property Type ID
                 2, --BHK
-                (select ID from FurnishingTypes where Name='Fully'), --Furnishing Type ID
+                (select Id from FurnishingTypes where Name='Fully'), --Furnishing Type ID
                 1800, --Price
                 1400, --Built Area
                 900, --Carpet Area
                 '6 Street', --Address
                 'Golf Course Road', -- Address2
-                (select top 1 ID from Cities), -- City ID
+                (select top 1 Id from Cities), -- City ID
                 3, -- Floor No
                 3, --Total Floors
                 1, --Ready to Move
@@ -111,15 +102,15 @@ namespace WebAPIS.Migrations
                 select 
                 2, --Sell Rent
                 'Birla House Demo', --Name
-                (select ID from PropertyTypes where Name='Apartment'), --Property Type ID
+                (select Id from PropertyTypes where Name='Apartment'), --Property Type ID
                 2, --BHK
-                (select ID from FurnishingTypes where Name='Fully'), --Furnishing Type ID
+                (select Id from FurnishingTypes where Name='Fully'), --Furnishing Type ID
                 1800, --Price
                 1400, --Built Area
                 900, --Carpet Area
                 '6 Street', --Address
                 'Golf Course Road', -- Address2
-                (select top 1 ID from Cities), -- City ID
+                (select top 1 Id from Cities), -- City ID
                 3, -- Floor No
                 3, --Total Floors
                 1, --Ready to Move
@@ -134,25 +125,4 @@ namespace WebAPIS.Migrations
                 GETDATE(), --Posted on
                 @UserID, --Posted by
                 GETDATE(), --Last Updated on
-                @UserID --Last Updated by            
-            ");
-
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
-                --------------------
-                --Seeding Down
-                --------------------
-                DECLARE @UserID as int
-                SET @UserID = (select ID from Users where Username='Demo')
-                delete from Users where Username='Demo'
-                delete from PropertyTypes where LastUpdatedBy=@UserID
-                delete from FurnishingTypes where LastUpdatedBy=@UserID
-                delete from Cities where LastUpdatedBy=@UserID
-                delete from Properties where PostedBy=@UserId
-            ");
-        }
-    }
-}
+                @UserID --Last Updated by      
