@@ -10,6 +10,7 @@ namespace WebAPIS.Interfaces
         ICityReop CityReop { get; }
         IUserReop UserRepository { get; }
         IPropertyRepository propertyRepository { get; }
+        IPropertyTypeRepository PropertyTypeRepository { get; }
         Task<bool> SaveAsync();
     }
 }

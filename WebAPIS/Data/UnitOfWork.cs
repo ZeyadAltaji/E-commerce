@@ -20,6 +20,8 @@ namespace WebAPIS.Data
 
         public IPropertyRepository propertyRepository => new PropertyRepository(dc);
 
+        public IPropertyTypeRepository PropertyTypeRepository =>new PropertyTypeRepository(dc);
+
         public async Task<bool> SaveAsync()
         {
             return await dc.SaveChangesAsync()>0;

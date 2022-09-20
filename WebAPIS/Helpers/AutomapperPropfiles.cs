@@ -30,6 +30,8 @@ namespace WebAPIS.Helpers
             //.ForMember(d => d.Country, opt => opt.MapFrom(src => src.city.country))
             //.ForMember(d => d.Ptype, opt => opt.MapFrom(src => src.Ptype.Name))
             //.ForMember(d => d.Ftype, opt => opt.MapFrom(src => src.Ftype.Name));
+
+            CreateMap<PropertyType, KeyValuePairDto>().ReverseMap();
         }
     }
 }
