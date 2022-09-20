@@ -2,39 +2,38 @@
   <div class="col-sm-4">
     <div class="card-img-wrapper">
       <!-- <img *ngIf="mainPhotoUrl" class="card-img-top" src="{{mainPhotoUrl}}"> -->
-      <img *ngIf="property.Image"  class="card-img-top" src="assets/image/{{property.Image}}">
-      <img *ngIf="!property.Image"  class="card-img-top" src="assets/image/house_default.png`">
+      <img *ngIf="property?.photo"  class="card-img-top" src="assets/image/{{property?.photo}}">
+      <img *ngIf="!property?.photo"  class="card-img-top" src="assets/image/house_default.png">
 
     </div>
     <div class="card-body">
-      <h1 class="card-title">{{property.Name}}</h1>
+      <h1 class="card-title">{{property?.name}}</h1>
       <div>
-        <strong>{{property.BHK}} BHK {{property.Ptype}} @ ${{property.price}}</strong>
+        <strong>{{property?.bhk}} BHK {{property?.bhk}} @ ${{property?.price}}</strong>
 
 
     </div>
     <div>
-       <strong>in {{property.city}}</strong>
+       <strong>in {{property?.city}}</strong>
      </div> <hr>
     <div>
         <strong>Build Area: </strong>
-        {{property.builtArea}}
+        {{property?.builtArea}}
     </div>
 
     <div>
         <strong>Carpet Area: </strong>
-        {{property.carpetArea}}Sqft
+        {{property?.CarpetArea}}Sqft
     </div>
     <div>
         <strong>Furnishing Type: </strong>
-        {{property.Ftype}}
+        {{property?.ftype}}
     </div>
     <div>
         <strong>Available for: </strong>
-        <span *ngIf="property.SellRent == 1">Purchase</span>
-        <span *ngIf="property.SellRent == 2">Rent</span>
-        <span >Purchase 2</span>
-        <span >Rent 1</span>
+        <span *ngIf="property.sellRent == 1">Purchase</span>
+        <span *ngIf="property.sellRent == 2">Rent</span>
+    
     </div>
     </div>
     <div class="card-footer">
@@ -53,12 +52,12 @@
               <div class="col-sm-6">
                   <div class="heading">
                       <strong>Project Name</strong>
-                      <p>{{property.Name}}</p>
+                      <p>{{property?.name}}</p>
                   </div>
 
                   <div class="heading">
                       <strong>Floor Number</strong>
-                      <p>{{property.floorNo}} of {{property.totalFloors}}</p>
+                      <p>{{property?.floorNo}} of {{property?.totalFloors}}</p>
                   </div>
 
                   <div class="heading">
@@ -68,35 +67,35 @@
 
                   <div class="heading">
                       <strong>Posession</strong>
-                      <p>{{property.estPossessionOn | date}}</p>
+                      <p>{{property.estPossessionOn | date:'shortTime'}}</p>
                   </div>
               </div>
 
               <div class="col-sm-6">
                   <div class="heading">
                       <strong>Main Entrance</strong>
-                      <p>{{property.mainEntrance}}</p>
+                      <p>{{property?.mainEntrance}}</p>
                   </div>
 
                   <div class="heading">
                       <strong>Gated Community</strong>
-                      <p *ngIf="property.gated">Yes</p>
-                      <p *ngIf="!property.gated">No</p>
+                      <p *ngIf="property?.gated">Yes</p>
+                      <p *ngIf="!property?.gated">No</p>
                   </div>
 
                   <div class="heading">
                       <strong>Security Deposit</strong>
-                      <p>{{property.Security}}</p>
+                      <p>{{property.security }}</p>
                   </div>
                   <div class="heading">
                       <strong>Maintenance</strong>
-                      <p>{{property.maintenance}}</p>
+                      <p   > {{property.maintenance}}</p>
                   </div>
               </div>
               <div class="col-sm-12">
                   <div class="heading">
                       <strong>About Property</strong>
-                      <p>{{property.description}}</p>
+                      <p>{{property?.description}}</p>
                   </div>
               </div>
             </div>
@@ -105,9 +104,9 @@
           <div class="col-sm-12">
             <h1>Address</h1>
             <div class="heading">
-                <strong>{{property.address}}</strong><br/>
-                <strong>{{property.address2}}</strong><br/>
-                <strong>{{property.city}}</strong>
+                <strong>{{property?.address}}</strong><br/>
+                <strong>{{property?.address2}}</strong><br/>
+                <strong>{{property?.city}}</strong>
             </div>
         </div>
 
@@ -119,3 +118,7 @@
     </div>
   </div>
 </div>
+
+
+
+

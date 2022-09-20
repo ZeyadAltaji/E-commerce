@@ -1,7 +1,7 @@
 <div class="card m-3" style="width: 18rem;">
   <div class="img-weapper">
-    <img *ngIf="property.Image" src="assets/image/{{property.Image}}" class="card-img-top image-pro" alt="...">
-    <img *ngIf="!property.Image" src="assets/image/house_default.png" class="card-img-top image-pro" alt="...">
+    <img *ngIf="property.photo" src="assets/image/{{property.photo}}" class="card-img-top image-pro" alt="...">
+    <img *ngIf="!property.photo" src="assets/image/house_default.png" class="card-img-top image-pro" alt="...">
 
     <ul *ngIf="!hideIcons" class="list-inline text-center member-icons animate">
       <li class="list-inline-item">
@@ -14,16 +14,16 @@
   </div>
 
   <div class="card-body p-1">
-    <h1 class="mb-0"> {{property.BHK}} BHK {{property.Ptype}} </h1>
+    <h1 class="mb-0"> {{property.bhk}} BHK {{property.ptype}} </h1>
 
-    in {{property.Name}}
-    <span *ngIf="property.Name">,</span>
+    in {{property?.name}}
+    <span *ngIf="property.name">,</span>
     {{property.city}}
 
-    <h6  class="mt-2">{{property.Ftype}}
-    <span *ngIf="property.Ftype !== 'Unfurnished'">Furnished</span>
-    <!-- <span *ngIf="property.readyToMove"> | Ready to Move</span>
-    <span *ngIf="!property.readyToMove"> | Posession: {{property.estPossessionOn | date}}</span> -->
+    <h6  class="mt-2">{{property.ftype}}
+    <span *ngIf="property.ftype !== 'Unfurnished'">Furnished</span>
+    <span *ngIf="property.readyToMove"> | Ready to Move</span>
+    <span *ngIf="!property.readyToMove"> | Posession: {{property.estPossessionOn | date}}</span>
     </h6>
 
     <hr class="mt-0 mb-2">

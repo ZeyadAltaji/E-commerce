@@ -10,7 +10,7 @@ using WebAPIS.Data;
 namespace WebAPIS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220916075617_seedDemoData")]
+    [Migration("20220920015945_seedDemoData")]
     partial class seedDemoData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

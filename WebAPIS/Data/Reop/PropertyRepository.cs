@@ -35,5 +35,15 @@ namespace WebAPIS.Data.Reop
             .Where(p =>p.SellRent ==SellRent ).ToListAsync();
             return prop;
         }
+
+        public async Task<Property> GetPropertyDetailAsync(int ID)
+        {
+            var prop = await dc.Properties
+            .Include(p => p.Ptype)
+            .Include(p => p.city)
+            .Include(p => p.Ftype)
+            .Where(p => p.id == ID).FirstAsync();
+            return prop;
+        }
     }
 }

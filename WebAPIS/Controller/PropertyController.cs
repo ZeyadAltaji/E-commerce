@@ -21,14 +21,24 @@ namespace WebAPIS.Controller
             this.mapper = mapper;
             this.uow = uow;
         }
-        [HttpGet("Type/{SellRent}")]
+        [HttpGet("List/{sellRent}")]
         [AllowAnonymous]
 
-        public async Task<IActionResult> GetPropertyList(int SellRent)
+        public async Task<IActionResult> GetPropertyList(int sellRent)
         {
-            var prop= await uow.propertyRepository.GetPropertiesAsync(SellRent);
+            var prop= await uow.propertyRepository.GetPropertiesAsync(sellRent);
             var proplistDTO = mapper.Map<IEnumerable<PropertyListDto>>(prop);
             return Ok(proplistDTO);
+        }
+
+        [HttpGet("Detail/{id}")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> GetPropertyDetail(int ID)
+        {
+            var property = await uow.propertyRepository.GetPropertyDetailAsync(ID);
+            var propDTO = mapper.Map<PropertyDetailDto>(property);
+            return Ok(propDTO);
         }
     }
 }

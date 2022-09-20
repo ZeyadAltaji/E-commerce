@@ -12,12 +12,12 @@ export class DetailPropetyResolverService implements Resolve<Property> {
 constructor(private router:Router,private housingService:HousingService) { }
       resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
       Observable<Property>|Property {
-          const propId = route.params['id'];
-          return this.housingService.getprop(+propId).pipe(
-              catchError(error => {
-                  this.router.navigate(['/']);
-                  return of(null);
-              })
-          );
+        const propId = route.params['id'];
+        return this.housingService.getProperty(+propId).pipe(
+            catchError(error => {
+                this.router.navigate(['/']);
+                return of(null);
+            })
+        );
       }
 }

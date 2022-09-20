@@ -15,17 +15,14 @@ export class HousingService {
   getallcities(): Observable<string[]> {
     return this.http.get<string[]>('https://localhost:44369/api/City');
   }
-  getprop(id: number) {
-    return this.getallProp(1).pipe(
-      map(propertiesArray => {
-        // throw new Error('some error');
-        return propertiesArray.find(p => p.id === id);
-      }
-      )
-    );
+  getProperty(id: number) {
+    // return this.http.get<Property>(this.baseUrl + 'Property/Detail/' + id.toString());
+    return this.http.get<Property>(this.baseUrl + '/Property/Detail/'+id.toString());
+
+
   }
-  getallProp(sellRent?: number): Observable<Property[]> {
-    return this.http.get<Property[]>(this.baseUrl+'Property/Type/'+sellRent.toString());
+  getallProp(SellRent?: number): Observable<Property[]> {
+      return this.http.get<Property[]>(this.baseUrl+'/Property/List/'+SellRent.toString());
   // return this.http.get('data/Properties.json').pipe(
   //   map(data => {
   //     const propertiesArray: Array<Property> = [];
@@ -76,9 +73,31 @@ export class HousingService {
       return 101;
     }
   }
+  getPropertyAge(dateofEstablishment: string): string
+  {
+      const today = new Date();
+      const estDate = new Date(dateofEstablishment);
+      let age = today.getFullYear() - estDate.getFullYear();
+      const m = today.getMonth() - estDate.getMonth();
+
+      // Current month smaller than establishment month or
+      // Same month but current date smaller than establishment date
+      if (m < 0 || (m === 0 && today.getDate() < estDate.getDate())) {
+          age --;
+      }
+
+      // Establshment date is future date
+      if(today < estDate) {
+          return '0';
+      }
+
+      // Age is less than a year
+      if(age === 0) {
+          return 'Less than a year';
+      }
+
+      return age.toString();
+  }
 }
-// for (const id in localproperties) {
-//   if (localproperties.hasOwnProperty(id) && localproperties[id].SellRent === SellRent) {
-//    propertiesArray.push(localproperties[id])
-//  }
-// }
+
+ 

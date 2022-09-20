@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit,ViewChild ,Input} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,22 +26,23 @@ export class AddPropertyComponent implements OnInit {
   cityList: any[];
   propertyView: IPropertyBase = {
     id: null,
-    Name: '',
+    name: '',
     price: null,
-    SellRent: null,
-    Ftype: null,
-    Ptype: null,
-    BHK: null,
+    sellRent: null,
+    ftype: null,
+    ptype: null,
+    bhk: null,
 
     builtArea: null,
     city: '',
-    ReadyToMove: null
+    readyToMove: null
   };
 
   constructor(private fb: FormBuilder,
     private housingService: HousingService,
     private alertify: AlertifyService,
-    private router:Router
+    private router: Router,
+    private datePipe: DatePipe,
     ) { }
 
 
@@ -112,7 +114,7 @@ export class AddPropertyComponent implements OnInit {
       this.housingService.addProperty(this.property);
       this.alertify.success('Congrats, your property listed successfully on our website');
       console.log(this.addPropertyForm);
-      if (this.SellRent.value === '2') {
+      if (this.sellRent.value === '2') {
         this.router.navigate(['/rent-propety']);
       } else {
         this.router.navigate(['/']);
@@ -124,28 +126,28 @@ export class AddPropertyComponent implements OnInit {
   }
   mapProperty(): void {
     this.property.id = this.housingService.newPropID();
-     this.property.SellRent = +this.SellRent.value;
-    this.property.BHK = this.BHK.value;
-    this.property.Ptype = this.Ptype.value;
-    this.property.Name = this.Name.value;
+     this.property.sellRent = +this.sellRent.value;
+    this.property.bhk = this.bhk.value;
+    this.property.ptype = this.Ptype.value;
+    this.property.name = this.Name.value;
     this.property.city = this.city.value;
-    this.property.Ftype = this.Ftype.value;
+    this.property.ftype = this.Ftype.value;
     this.property.price = this.price.value;
-    this.property.Security = this.Security.value;
+    this.property.security = this.Security.value;
     this.property.maintenance = this.maintenance.value;
     this.property.builtArea = this.builtArea.value;
-    this.property.carpetArea = this.CarpetArea.value;
+    this.property.CarpetArea = this.CarpetArea.value;
     this.property.floorNo = this.FloorNo.value;
     this.property.totalFloors = this.TotalFloors.value;
     this.property.address = this.address.value;
     this.property.address2 = this.landMark.value;
-    this.property.ReadyToMove = this.readyToMove.value;
+    this.property.readyToMove = this.readyToMove.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.maintenance.value;
-    this.property.estPossessionOn =
-        // this.datePipe.transform(this.PossessionOn.value,'MM/dd/yyyy');
+    this.property.estPossessionOn = this.datePipe.transform(this.PossessionOn.value,'MM/dd/yyyy');
+
       this.property.description = this.Description.value;
-    this.property.estPossessionOn = new Date().toString();
+    // this.property.estPossessionOn= new Date().toString();
 }
   selectTab(tabId: number, IsCurrentTabValid: boolean) {
     this.nextClicked = true;
@@ -200,13 +202,13 @@ get OtherInfo() {
 
 
     // #region <Form Controls>
-    get SellRent() {
+    get sellRent() {
       return this.BasicInfo.controls['SellRent'] as FormControl;
     }
     get price() {
       return this.PriceInfo.controls['price'] as FormControl;
     }
-    get BHK() {
+    get bhk() {
       return this.BasicInfo.controls['BHK'] as FormControl;
   }
 

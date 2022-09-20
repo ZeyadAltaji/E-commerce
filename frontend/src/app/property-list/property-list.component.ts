@@ -9,7 +9,6 @@ import { IPropertyBase } from '../model/IPropertyBase';
 })
 export class PropertyListComponent implements OnInit {
   SellRent = 1;
-  // Properties: IPropertyBase[];
   Properties: IPropertyBase[];
   Today = new Date();
   city = '';
@@ -23,7 +22,7 @@ export class PropertyListComponent implements OnInit {
     if (this.route.snapshot.url.toString() ) {
       this.SellRent = 2;
     }
-     this.housingService.getallProp( ).subscribe(
+     this.housingService.getallProp(this.SellRent ).subscribe(
        data => {
          this.Properties = data;
          console.log(data);

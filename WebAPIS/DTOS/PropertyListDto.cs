@@ -8,7 +8,7 @@ namespace WebAPIS.DTOS
     public class PropertyListDto
     {
         public int id { get; set; }
-        public int SellRent { get; set;}
+        public int sellRent { get; set;}
         public string Name { get; set; }
         public string Ptype { get; set; }
         public string Ftype { get; set; }
@@ -18,12 +18,7 @@ namespace WebAPIS.DTOS
         public string City { get; set; }
         public string Country { get; set; }
         public bool ReadyToMove { get; set; }
+        public string Image { get; set; }
 
-
-
-         //public int sellRent { get; set; }
-     
-         //public DateTime EstPossessionOn { get; set; }
-        //public string Photo { get; set; }
     }
 }

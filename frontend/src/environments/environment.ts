@@ -5,7 +5,7 @@
 export const environment = {
   production: true,
   baseUrlLogin: 'https://localhost:44369/apis',
-  baseUrlGetProp:'https://localhost:44369/api_Property/'
+  baseUrlGetProp:'https://localhost:44369/api_Property'
 };
 
 /*
