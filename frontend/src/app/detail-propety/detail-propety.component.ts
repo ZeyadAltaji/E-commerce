@@ -3,6 +3,8 @@ import { literalMap } from '@angular/compiler';
 import { HousingService } from 'src/app/services/housing.service';
 import { ActivatedRoute ,Router} from '@angular/router';
 import { Property } from '../model/property';
+import { HttpClientModule} from '@angular/common/http';
+import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryModule, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-detail-propety',
@@ -12,6 +14,10 @@ import { Property } from '../model/property';
 export class DetailPropetyComponent implements OnInit {
   public propertyId: number;
   property = new Property();
+
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private housingService: HousingService) { }
@@ -62,6 +68,56 @@ export class DetailPropetyComponent implements OnInit {
     //     )
     //   }
     // )
+    this.galleryOptions = [
+      {
+        width: '600px',
+        height: '400px',
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide
+      },
+      // max-width 800
+      {
+        breakpoint: 800,
+        width: '100%',
+        height: '600px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20
+      },
+      // max-width 400
+      {
+        breakpoint: 400,
+        preview: false
+      }
+    ];
+
+    this.galleryImages = [
+      {
+        small: 'assets/image/villa-1.webp',
+        medium: 'assets/image/villa-1.webp',
+        big: 'assets/image/villa-1.webp'
+      },
+      {
+        small: 'assets/image/villa-2.webp',
+        medium: 'assets/image/villa-2.webp',
+        big: 'assets/image/villa-2.webp'
+      },
+      {
+        small: 'assets/image/villa-3.webp',
+        medium: 'assets/image/villa-3.webp',
+        big: 'assets/image/villa-3.webp'
+      },{
+        small: 'assets/image/villa-4.webp',
+        medium: 'assets/image/villa-4.webp',
+        big: 'assets/image/villa-4.webp'
+      },
+      {
+        small: 'assets/image/villa-5.webp',
+        medium: 'assets/image/villa-5.webp',
+        big: 'assets/image/villa-5.webp'
+      }
+    ];
   }
   OnSelectNext() {
 

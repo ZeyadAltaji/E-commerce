@@ -25,6 +25,7 @@ import { DetailPropetyResolverService } from './detail-propety/detail-propety-Re
 import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { HttperorInterceptorService } from './services/httperor-interceptor.service';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 const appRoutes: Routes = [
 
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
       PropertyListComponent,
       AddPropertyComponent,
     DetailPropetyComponent,
+
     UserRegiserComponent,
     UserLoginComponent,
     FilterPipe,
@@ -82,6 +84,8 @@ const appRoutes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    HttpClientModule,
+    NgxGalleryModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,

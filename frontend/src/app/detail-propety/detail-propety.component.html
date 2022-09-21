@@ -33,7 +33,7 @@
         <strong>Available for: </strong>
         <span *ngIf="property.sellRent == 1">Purchase</span>
         <span *ngIf="property.sellRent == 2">Rent</span>
-    
+
     </div>
     </div>
     <div class="card-footer">
@@ -112,6 +112,9 @@
 
         </tab>
         <tab heading="Photos">
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery">
+            <!-- <img src="assets/image/villa-1.webp" alt=""> -->
+          </ngx-gallery>
           <!-- <ngx-gallery [options]="galleryOptions" [image]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
         </tab>
       </tabset>
