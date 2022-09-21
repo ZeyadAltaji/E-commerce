@@ -70,10 +70,15 @@ export class DetailPropetyComponent implements OnInit {
     // )
     this.galleryOptions = [
       {
-        width: '600px',
-        height: '400px',
+        width: '100%',
+        height: '465px',
         thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: true,
+        previewCloseOnEsc: true,
+        previewCloseOnClick: true,
+        previewAutoPlay: true,
+  
       },
       // max-width 800
       {
