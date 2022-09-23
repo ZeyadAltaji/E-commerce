@@ -1,29 +1,30 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit,ViewChild ,Input} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit,ViewChild} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
-import { Observable } from 'rxjs';
+import { IKeyValuePair } from '../model/IKeyValuePair';
 import { IPropertyBase } from '../model/IPropertyBase';
 import { Property } from '../model/property';
 import { AlertifyService } from '../services/alertify.service';
 import { HousingService } from '../services/housing.service';
+
 @Component({
   selector: 'app-add-property',
   templateUrl: './add-property.component.html',
   styleUrls: ['./add-property.component.css']
 })
 export class AddPropertyComponent implements OnInit {
-  // @ViewChild('Form') AddPropertyForm: NgForm;
+   //@ViewChild('Form') AddPropertyForm: NgForm;
 
-  @ViewChild('formTabs') formTabs?: TabsetComponent;
+  @ViewChild('formTabs') formTabs: TabsetComponent;
   nextClicked: boolean;
   addPropertyForm: FormGroup;
   // will come from masters
-  PropertyType: Array<string> = ['House', 'Apartment', 'Duplex'];
-  furnishTypes: Array<string> = ['Fully', 'Semi', 'Unfurnished'];
+  PropertyType:  IKeyValuePair[];
+  furnishTypes: IKeyValuePair[];
   property = new Property();
-  cityList: any[];
+   cityList: any[];
   propertyView: IPropertyBase = {
     id: null,
     name: '',
@@ -32,39 +33,35 @@ export class AddPropertyComponent implements OnInit {
     ftype: null,
     ptype: null,
     bhk: null,
-
-    builtArea: null,
+    builtArea: null ,
     city: '',
+
     readyToMove: null
   };
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private housingService: HousingService,
     private alertify: AlertifyService,
     private router: Router,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe
     ) { }
 
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.AddPropertyForm.controls['Name'].setValue('Name')
 
-    // } ),1000;
     this.CreateAddPropertyForm();
     this.housingService.getallcities().subscribe(data => {
       this.cityList = data;
       console.log(data);
     })
-    // this.housingService.getallcities().subscribe(
+    this.housingService.getPropType().subscribe(data => {
+      this.PropertyType = data;
+    });
+    this.housingService.getFurnishingType().subscribe(data => {
+      this.furnishTypes = data;
+    });
 
-    //   data => {
-    //     console.log(data)
-    //   }
-    //   ,error => {
-    //     console.log('facking no data !!!!!!!!');
-    //   }
-    // )
 
   }
 
@@ -144,8 +141,8 @@ export class AddPropertyComponent implements OnInit {
     this.property.readyToMove = this.readyToMove.value;
     this.property.gated = this.Gated.value;
     this.property.mainEntrance = this.maintenance.value;
-    this.property.estPossessionOn = this.datePipe.transform(this.PossessionOn.value,'MM/dd/yyyy');
-
+    this.property.estPossessionOn =
+    this.datePipe.transform(this.PossessionOn.value,'MM/dd/yyyy');
       this.property.description = this.Description.value;
     // this.property.estPossessionOn= new Date().toString();
 }

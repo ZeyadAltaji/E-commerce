@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPIS.DTOS;
 using WebAPIS.Interfaces;
+using WebAPIS.Models;
 
 namespace WebAPIS.Controller
 {
@@ -38,7 +40,36 @@ namespace WebAPIS.Controller
         {
             var property = await uow.propertyRepository.GetPropertyDetailAsync(ID);
             var propDTO = mapper.Map<PropertyDetailDto>(property);
+            
             return Ok(propDTO);
         }
+        [HttpPost("ADD-list")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> AddProperty(PropertyDto propertyDto)
+        {
+            var property = mapper.Map<Property>(propertyDto);
+            property.PostedBy = 22;
+            property.LastUpdatedBy = 1;
+            uow.propertyRepository.AddProperty(property);
+            await uow.SaveAsync();
+            return StatusCode(201);
+        }
+        //property/add
+        //[HttpPost("add")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> AddProperty(PropertyDto propertyDto)
+        //{
+
+        //    var property = mapper.Map<Property>(propertyDto);
+        //     property.PostedBy = 1;
+        //        property.LastUpdatedBy = 1;
+        //        uow.propertyRepository.AddProperty(property);
+        //        await uow.SaveAsync();
+
+
+        //    return StatusCode(201);
+        //}
+
     }
 }

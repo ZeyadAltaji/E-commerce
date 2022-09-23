@@ -14,6 +14,8 @@ namespace WebAPIS.Helpers
         {
             CreateMap<City, CitysDTOS>().ReverseMap();
             CreateMap<City, CitysUpdatedDTOS>().ReverseMap();
+            CreateMap<Property, PropertyDto>().ReverseMap();
+
             CreateMap<Property, PropertyListDto>()
                 .ForMember(d => d.City, opt => opt.MapFrom(src => src.city.Name))
                 .ForMember(d => d.Country, opt => opt.MapFrom(src => src.city.country))
@@ -27,11 +29,11 @@ namespace WebAPIS.Helpers
                 .ForMember(d => d.Country, opt => opt.MapFrom(src => src.city.country))
                 .ForMember(d => d.Ptype, opt => opt.MapFrom(src => src.Ptype.Name))
                 .ForMember(d => d.Ftype, opt => opt.MapFrom(src => src.Ftype.Name));
-            //.ForMember(d => d.Country, opt => opt.MapFrom(src => src.city.country))
-            //.ForMember(d => d.Ptype, opt => opt.MapFrom(src => src.Ptype.Name))
-            //.ForMember(d => d.Ftype, opt => opt.MapFrom(src => src.Ftype.Name));
+           
+ 
+            CreateMap<FurnishingType, KeyValuePairDto>();
+            CreateMap<PropertyType, KeyValuePairDto>();
 
-            CreateMap<PropertyType, KeyValuePairDto>().ReverseMap();
         }
     }
 }

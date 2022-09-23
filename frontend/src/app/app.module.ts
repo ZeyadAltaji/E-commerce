@@ -26,6 +26,7 @@ import { FilterPipe } from './Pipes/filter.pipe';
 import { SortPipe } from './Pipes/sort.pipe';
 import { HttperorInterceptorService } from './services/httperor-interceptor.service';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { DatePipe } from '@angular/common';
 
 const appRoutes: Routes = [
 
@@ -107,7 +108,8 @@ const appRoutes: Routes = [
     UserServiceService,
     AlertifyService,
     AuthService,
-    DetailPropetyResolverService
+    DetailPropetyResolverService,
+    DatePipe
 
   ],
   bootstrap: [AppComponent]

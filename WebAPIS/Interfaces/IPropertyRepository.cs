@@ -12,6 +12,8 @@ namespace WebAPIS.Interfaces
 
         Task<Property> GetPropertyDetailAsync(int ID);
 
+        Task<Property> GetPropertyByIdAsync(int id);
+
         void AddProperty(Property property);
 
         void DeleteProperty(int id);

@@ -8,7 +8,7 @@ namespace WebAPIS.Models
 {
     public class City : BaseEntity
     {
-   
+
         public string Name { get; set; }
         [Required]
         public string country { get; set; }

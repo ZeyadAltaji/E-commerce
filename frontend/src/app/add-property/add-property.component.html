@@ -42,8 +42,10 @@
                     <label
                     *ngFor="let ptype of PropertyType"
                     class="btn btn-outline-primary mr-2"
-                    btnRadio="{{ptype}}" tabindex="0" role="button">
-                    {{ptype}}
+                    btnRadio="{{ptype.id}}" tabindex="0" role="button"
+                    (click)="propertyView.ptype=ptype.name"
+                    >
+                    {{ptype.name}}
                     </label>
                   </div>
                   <div class="error-block" *ngIf="Ptype.invalid && nextClicked">
@@ -57,8 +59,11 @@
                   <label
                   *ngFor="let furnish of furnishTypes"
                   class="btn btn-outline-primary mr-2"
-                  btnRadio="{{furnish}}" tabindex="0" role="button">
-                  {{furnish}}
+                  btnRadio="{{furnish.id}}" tabindex="0" role="button"
+                  (click)="propertyView.ftype=furnish.name">
+
+
+                  {{furnish.name}}
                   </label>
 
                   </div>
@@ -80,8 +85,10 @@
                   <label>City</label>
 
                   <select
+                  #City
+                  (change)="propertyView.city=City.options[City.options.selectedIndex].text"
                   class="form-select"
-                  formControlName="city" [(ngModel)]="propertyView.city">
+                  formControlName="city">
                     <option  value="" selected >--Select City--</option>
                     <option *ngFor="let city of cityList" value={{city.id}}>
                       {{city.name}}
@@ -103,7 +110,8 @@
                   <label  class="form-label" *ngIf="sellRent.value==1">Price (in USD)</label>
                   <label  class="form-label" *ngIf="sellRent.value==2">Rent (in USD)</label>
 
-                  <input type="text" class="form-control" name='price' formControlName="price" [(ngModel)]="propertyView.price" >
+                  <input type="text" class="form-control"   formControlName="price"
+                  (keyup)="propertyView.price=price.value" >
                   <div class="error-block"
                   *ngIf="price.invalid && (nextClicked || price.touched)">
                     Please select
@@ -113,19 +121,19 @@
                   </div>
                   <div class="form-group col-12">
                   <label class="form-label">Security (in USD)</label>
-                  <input type="number" class="form-control" formControlName="Security" >
+                  <input type="text" class="form-control" formControlName="Security" >
                 </div>
                 <div class="form-group col-12">
                   <label class="form-label">Maintenance (in USD)</label>
-                  <input type="number" class="form-control" formControlName="Maintenance">
+                  <input type="text" class="form-control" formControlName="Maintenance">
                 </div>
                 <div class="form-group col-12">
                   <label  class="form-label">Built Area (in Sqr Feet)</label>
-                  <input type="number"  class="form-control"  formControlName="builtArea">
+                  <input type="text"  (keyup)="propertyView.builtArea=builtArea.value " class="form-control"  formControlName="builtArea">
                 </div>
                 <div class="form-group col-12">
                   <label  class="form-label">Carpet Area (in Sqr Feet)</label>
-                  <input type="number"  class="form-control"   formControlName="CarpetArea">
+                  <input type="text"  class="form-control"   formControlName="CarpetArea">
                 </div>
                 <div class="form-group mt-2 gap-2 col-12">
                   <button type="button" class="btn btn-primary " (click)="selectTab(0,PriceInfo.valid)"> Back</button>
@@ -163,25 +171,39 @@
               <tab heading="Other Details" formGroupName="OtherInfo">
                 <div class="form-group col-12">
                   <p>Ready to Move</p>
-                  <div class="btn-group" btnRadioGroup formControlName="RTM"
-                  >
+                  <div class="btn-group" btnRadioGroup
+                  formControlName="RTM">
                     <label class="btn btn-outline-primary mr-2"
                       btnRadio=true tabindex="0" role="button"
+                      (click)="propertyView.readyToMove=true"
                       name="RTM">Yes
                     </label>
+
                     <label class="btn btn-outline-primary"
                       btnRadio=false  tabindex="0" role="button"
-
+                      (click)="propertyView.readyToMove=false"
                       name="RTM">No
                     </label>
                   </div>
+                  <div class="error-block" *ngIf="readyToMove.invalid && nextClicked">
+                    Please select ready to move
+                  </div>
                 </div>
                 <div class="form-group col-6">
-                  <label >Establishment Date</label>
-                  <label >Possession Date</label>
+                  <label *ngIf="propertyView.readyToMove">Establishment Date</label>
+                  <label *ngIf="!propertyView.readyToMove">Possession Date</label>
                   <input type="text"
-                  class="form-control" formControlName="PossessionOn" bsDatepicker  [bsConfig]="{containerClass:'theme-dark-blue',dateInputFormat: 'MMM DD, YYYY'}">
-
+                  class="form-control"
+                  formControlName="PossessionOn"
+                  #possessionOn
+                  (bsValueChange)="propertyView.estPossessionOn=possessionOn.value"
+                  bsDatepicker
+                  [bsConfig]="{containerClass: 'theme-dark-blue',
+                  dateInputFormat: 'MMM DD, YYYY'}">
+                  <div class="error-block" *ngIf="PossessionOn.invalid
+                    && (nextClicked || PossessionOn.touched)">
+                    Please select establishment/possession date
+                  </div>
                 </div>
                 <div class="form-group col-12">
                   <p>Gated Community</p>

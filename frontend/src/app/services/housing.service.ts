@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import{IProperty} from '../Property_interface/IProperty.interface'
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { environment } from 'src/environments/environment';
+import { IKeyValuePair } from '../model/IKeyValuePair';
 @Injectable({
   providedIn: 'root'
 })
 export class HousingService {
   baseUrl = environment.baseUrlGetProp;
+  baseUrlTy = environment.baseURlpropType;
+  baseUrlFurnishingType = environment.baseUrlFurnishingType;
+  baseadd = environment.baseUrladd;
   constructor(private http: HttpClient) { }
 
   getallcities(): Observable<string[]> {
     return this.http.get<string[]>('https://localhost:44369/api/City');
+  }
+  getPropType(): Observable<IKeyValuePair[]> {
+    return this.http.get<IKeyValuePair[]>(this.baseUrlTy+'/PropertyTypeRepository/list');
+  }
+  getFurnishingType(): Observable<IKeyValuePair[]> {
+    return this.http.get<IKeyValuePair[]>(this.baseUrlFurnishingType+'/FurnishingType/list');
   }
   getProperty(id: number) {
     // return this.http.get<Property>(this.baseUrl + 'Property/Detail/' + id.toString());
@@ -55,12 +65,25 @@ export class HousingService {
   // return this.http.get<Property[]>('data/Properties,json');
 }
   addProperty(property: Property) {
-    let newProp = [property];
-    if (localStorage.getItem('newProp')) {
-      newProp = [property,
-        ...JSON.parse(localStorage.getItem('newProp'))];
-    }
-    localStorage.setItem('newProp', JSON.stringify(newProp));
+    // const httpOptions = {
+    //   Headers: new HttpHeaders({
+    //     Authorization: 'Bearer' + localStorage.getItem('token')
+    //   })
+
+    // };
+    // return this.http.post(this.baseadd + '/Property/add', property, httpOptions);
+    // let newProp = [property];
+    // if (localStorage.getItem('newProp')) {
+    //   newProp = [property,
+    //     ...JSON.parse(localStorage.getItem('newProp'))];
+    // }
+    // localStorage.setItem('newProp', JSON.stringify(newProp));
+    const httpOptions = {
+      headers: new HttpHeaders({
+          Authorization: 'Bearer'+ localStorage.getItem('token')
+      })
+  };
+  return this.http.post(this.baseadd + '/property/add', property, httpOptions);
   }
 
   newPropID() {
@@ -100,4 +123,4 @@ export class HousingService {
   }
 }
 
- 
+

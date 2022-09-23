@@ -18,13 +18,16 @@ namespace WebAPIS.Data
 
         public IUserReop UserRepository => new UsersReop(dc);
 
-        public IPropertyRepository propertyRepository => new PropertyRepository(dc);
 
         public IPropertyTypeRepository PropertyTypeRepository =>new PropertyTypeRepository(dc);
 
+        public IFurnishingTypeRepository FurnishingTypeRepository => new FurnishingTypeRepository (dc);
+
+        public IPropertyRepository propertyRepository =>  new PropertyRepository(dc);
+
         public async Task<bool> SaveAsync()
         {
-            return await dc.SaveChangesAsync()>0;
+            return await dc.SaveChangesAsync() > 0;
         }
     }
 }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace WebAPIS.Models
 {
-    public class Property
+    public class Property :BaseEntity
     {
-        public int id { get; set; }
         public int SellRent { get; set; }
         public string Name { get; set; }
         public int PropertyTypeId { get; set; }

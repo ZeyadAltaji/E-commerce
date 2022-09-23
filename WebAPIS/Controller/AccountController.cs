@@ -54,11 +54,11 @@ namespace WebAPIS.Controller
         public async Task<IActionResult> Register(loginReqDto loginReq)
         {
              if (loginReq.UserName.IsEmpty() || loginReq.Password.IsEmpty())
-            {
+             {
                 apiError.ErrorCode = BadRequest().StatusCode;
                 apiError.ErrorMessage = "User name or password can not be blank";
                 return BadRequest(apiError);
-            }
+             }
             if (await uow.UserRepository.UserAlreadyExists(loginReq.UserName))
             {
                 apiError.ErrorCode = BadRequest().StatusCode;

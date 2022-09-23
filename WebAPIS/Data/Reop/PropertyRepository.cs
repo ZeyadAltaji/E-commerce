@@ -18,7 +18,7 @@ namespace WebAPIS.Data.Reop
         }
         public void AddProperty(Property property)
         {
-            throw new NotImplementedException();
+            dc.Properties.Add(property);
         }
 
         public void DeleteProperty(int id)
@@ -36,13 +36,18 @@ namespace WebAPIS.Data.Reop
             return prop;
         }
 
+        public Task<Property> GetPropertyByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Property> GetPropertyDetailAsync(int ID)
         {
             var prop = await dc.Properties
             .Include(p => p.Ptype)
             .Include(p => p.city)
             .Include(p => p.Ftype)
-            .Where(p => p.id == ID).FirstAsync();
+            .Where(p => p.ID == ID).FirstAsync();
             return prop;
         }
     }
