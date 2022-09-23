@@ -12,8 +12,8 @@ using WebAPIS.Models;
 
 namespace WebAPIS.Controller
 {
-    [Route("api_Property/[controller]")]
-    [ApiController]
+   // [Route("api_Property/[controller]")]
+    //[ApiController]
     public class PropertyController : BaseController
     {
         private readonly IUnitOfWork uow;
@@ -44,12 +44,13 @@ namespace WebAPIS.Controller
             return Ok(propDTO);
         }
         [HttpPost("ADD-list")]
-        [AllowAnonymous]
-
+        //[AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> AddProperty(PropertyDto propertyDto)
         {
             var property = mapper.Map<Property>(propertyDto);
-            property.PostedBy = 22;
+            var userID = GetUserID();
+            property.PostedBy = userID;
             property.LastUpdatedBy = 1;
             uow.propertyRepository.AddProperty(property);
             await uow.SaveAsync();

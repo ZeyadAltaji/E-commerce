@@ -27,7 +27,8 @@ export class HousingService {
   }
   getProperty(id: number) {
     // return this.http.get<Property>(this.baseUrl + 'Property/Detail/' + id.toString());
-    return this.http.get<Property>(this.baseUrl + '/Property/Detail/'+id.toString());
+    return this.http.get<Property>(this.baseUrl + '/Property/Detail/' + id.toString());
+
 
 
   }
@@ -65,12 +66,14 @@ export class HousingService {
   // return this.http.get<Property[]>('data/Properties,json');
 }
   addProperty(property: Property) {
-    // const httpOptions = {
-    //   Headers: new HttpHeaders({
-    //     Authorization: 'Bearer' + localStorage.getItem('token')
-    //   })
+    const httpOptions = {
+      Headers: new HttpHeaders({
+        Authorization: 'Bearer' + localStorage.getItem('token')
+      })
 
-    // };
+    };
+    return this.http.post(this.baseadd + '/property/ADD-list', property, httpOptions);
+
     // return this.http.post(this.baseadd + '/Property/add', property, httpOptions);
     // let newProp = [property];
     // if (localStorage.getItem('newProp')) {
@@ -78,12 +81,11 @@ export class HousingService {
     //     ...JSON.parse(localStorage.getItem('newProp'))];
     // }
     // localStorage.setItem('newProp', JSON.stringify(newProp));
-    const httpOptions = {
-      headers: new HttpHeaders({
-          Authorization: 'Bearer'+ localStorage.getItem('token')
-      })
-  };
-  return this.http.post(this.baseadd + '/property/add', property, httpOptions);
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //       Authorization: 'Bearer'+ localStorage.getItem('token')
+    //   })
+  // };
   }
 
   newPropID() {

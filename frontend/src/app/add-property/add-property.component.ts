@@ -108,14 +108,16 @@ export class AddPropertyComponent implements OnInit {
     this.nextClicked = true;
     if (this.alltabsvild()) {
       this.mapProperty();
-      this.housingService.addProperty(this.property);
-      this.alertify.success('Congrats, your property listed successfully on our website');
-      console.log(this.addPropertyForm);
-      if (this.sellRent.value === '2') {
-        this.router.navigate(['/rent-propety']);
-      } else {
-        this.router.navigate(['/']);
-      }
+      this.housingService.addProperty(this.property).subscribe(() => {
+        this.alertify.success('Congrats, your property listed successfully on our website');
+        console.log(this.addPropertyForm);
+        if (this.sellRent.value === '2') {
+          this.router.navigate(['/rent-propety']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      });
+
     }
     else {
       this.alertify.error('Please review the form and provide all valid entries');
@@ -125,10 +127,10 @@ export class AddPropertyComponent implements OnInit {
     this.property.id = this.housingService.newPropID();
      this.property.sellRent = +this.sellRent.value;
     this.property.bhk = this.bhk.value;
-    this.property.ptype = this.Ptype.value;
+    this.property.propertyTypeId = this.Ptype.value;
     this.property.name = this.Name.value;
-    this.property.city = this.city.value;
-    this.property.ftype = this.Ftype.value;
+    this.property.CityId = this.city.value;
+    this.property.furnishingTypeId = this.Ftype.value;
     this.property.price = this.price.value;
     this.property.security = this.Security.value;
     this.property.maintenance = this.maintenance.value;

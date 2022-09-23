@@ -14,8 +14,7 @@ constructor( private alertify:AlertifyService ) { }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log('HTTP Requset Started !!!');
     return next.handle(req).pipe(
-      retryWhen(
-        error => this.retryRequest(error,19)),
+      retryWhen(error => this.retryRequest(error,10)),
       catchError((error: HttpErrorResponse) => {
         const errorMsg = this.SetError(error);
         console.log(error);
@@ -48,7 +47,7 @@ constructor( private alertify:AlertifyService ) { }
         // if (checkErr.status === ErrorCode.unauthorised && count <=retryCount) {
         //   return of(checkErr);
         // }
- 
+
         return throwError(checkErr);
       })
     )
@@ -65,10 +64,13 @@ constructor( private alertify:AlertifyService ) { }
     else
     {
       //server side error
-      if (error.status !== 0)
+      if (error.status === 401)
       {
-        errorMsg = error.error;
+        return error.statusText;
       }
+      if (error.error.errorMsg && error.status!==0) {
+        {errorMsg = error.error.errorMsg;}
+    }
     }
 
 
