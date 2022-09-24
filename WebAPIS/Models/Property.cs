@@ -32,6 +32,7 @@ namespace WebAPIS.Models
         public DateTime estPossessionOn { get; set; }
         public int age { get; set; }
         public string description { get; set; }
+
         public ICollection<Photo> Image { get; set; }
 
         public DateTime PostedOn { get; set; } = DateTime.Now;

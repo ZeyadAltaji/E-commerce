@@ -49,7 +49,11 @@ export class AddPropertyComponent implements OnInit {
 
 
   ngOnInit() {
-
+    if(!localStorage.getItem('UserName'))
+    {
+        this.alertify.error('You must be looged in to add a property');
+        this.router.navigate(['/user/login']);
+    }
     this.CreateAddPropertyForm();
     this.housingService.getallcities().subscribe(data => {
       this.cityList = data;
@@ -108,15 +112,18 @@ export class AddPropertyComponent implements OnInit {
     this.nextClicked = true;
     if (this.alltabsvild()) {
       this.mapProperty();
-      this.housingService.addProperty(this.property).subscribe(() => {
-        this.alertify.success('Congrats, your property listed successfully on our website');
-        console.log(this.addPropertyForm);
-        if (this.sellRent.value === '2') {
-          this.router.navigate(['/rent-propety']);
-        } else {
-          this.router.navigate(['/']);
+      this.housingService.addProperty(this.property).subscribe(
+        () => {
+            this.alertify.success('Congrats, your property listed successfully on our website');
+            console.log(this.addPropertyForm);
+
+            if (this.sellRent.value === '2') {
+                this.router.navigate(['/rent-property']);
+            } else {
+                this.router.navigate(['/']);
+            }
         }
-      });
+    );
 
     }
     else {
@@ -146,8 +153,7 @@ export class AddPropertyComponent implements OnInit {
     this.property.estPossessionOn =
     this.datePipe.transform(this.PossessionOn.value,'MM/dd/yyyy');
       this.property.description = this.Description.value;
-    // this.property.estPossessionOn= new Date().toString();
-}
+ }
   selectTab(tabId: number, IsCurrentTabValid: boolean) {
     this.nextClicked = true;
     if(IsCurrentTabValid){

@@ -4,8 +4,7 @@ export interface UserForRegister {
   password: string;
   moblie?: number;
 }
-export
-  interface UserForLogin{
+export  interface UserForLogin{
     userName: string;
     password: string;
     token: string;

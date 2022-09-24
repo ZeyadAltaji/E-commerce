@@ -23,11 +23,13 @@ export class UserLoginComponent implements OnInit {
       (response:UserForLogin) => {
         console.log(response);
         const user = response;
-        localStorage.setItem('token', user.token);
-        localStorage.setItem('token', user.userName);
+        if (user) {
+          localStorage.setItem('UserName', user.userName);
+          localStorage.setItem('token', user.token);
 
         this.alertify.success('login successfully');
         this.route.navigate(['/'])
+      }
 
       }
         //, error => {

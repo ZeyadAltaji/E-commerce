@@ -1,9 +1,12 @@
 <div class="row shadow">
   <div class="col-sm-4">
     <div class="card-img-wrapper">
-      <!-- <img *ngIf="mainPhotoUrl" class="card-img-top" src="{{mainPhotoUrl}}"> -->
-      <img *ngIf="property?.photo"  class="card-img-top" src="assets/image/{{property?.photo}}">
-      <img *ngIf="!property?.photo"  class="card-img-top" src="assets/image/house_default.png">
+      <img *ngIf="mainPhotoUrl" class="card-img-top" src="{{mainPhotoUrl}}">
+      <img *ngIf="!mainPhotoUrl"  class="card-img-top" src="assets/image/house_default.png">
+
+      <!-- <img *ngIf="property?.photo"  class="card-img-top" src="assets/image/{{property?.photo}}"> -->
+      <!-- <img *ngIf="!property?.photo"  class="card-img-top" src="assets/image/house_default.png"> -->
+
 
     </div>
     <div class="card-body">

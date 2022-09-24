@@ -14,10 +14,11 @@ export class NavBarComponent implements OnInit {
 
   }
   loggedin() {
-    this.loggedinUser= localStorage.getItem('token');
+    this.loggedinUser= localStorage.getItem('UserName');
     return this.loggedinUser;
   }
   OnLogout() {
+    localStorage.removeItem('UserName');
     localStorage.removeItem('token');
     this.alertify.success('You Are Logged Out Successfully !')
   }

@@ -22,13 +22,13 @@ export class PropertyListComponent implements OnInit {
     if (this.route.snapshot.url.toString() ) {
       this.SellRent = 2;
     }
-     this.housingService.getallProp(this.SellRent ).subscribe(
+     this.housingService.getallProp(this.SellRent).subscribe(
        data => {
          this.Properties = data;
          console.log(data);
        }, error => {
          console.log('http errors');
-         console.log(Error);
+         console.log(error);
       }
     )
 

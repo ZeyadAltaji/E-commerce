@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPIS.Interfaces;
 using WebAPIS.Models;
-using System.Linq;
+
 
 namespace WebAPIS.Data.Reop
 {
@@ -32,13 +32,18 @@ namespace WebAPIS.Data.Reop
             .Include(p=>p.Ptype)
             .Include(p => p.city)
             .Include(p => p.Ftype)
+            .Include(p=>p.Image)
             .Where(p =>p.SellRent ==SellRent ).ToListAsync();
             return prop;
         }
 
-        public Task<Property> GetPropertyByIdAsync(int id)
+        public async Task<Property> GetPropertyByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var prop = await dc.Properties
+                     
+                      .Include(p => p.Image)
+                      .Where(p => p.ID == id).FirstAsync();
+            return prop;
         }
 
         public async Task<Property> GetPropertyDetailAsync(int ID)
@@ -47,6 +52,7 @@ namespace WebAPIS.Data.Reop
             .Include(p => p.Ptype)
             .Include(p => p.city)
             .Include(p => p.Ftype)
+            .Include(p => p.Image)
             .Where(p => p.ID == ID).FirstAsync();
             return prop;
         }

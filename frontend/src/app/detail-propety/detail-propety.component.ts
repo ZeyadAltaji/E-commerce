@@ -13,6 +13,7 @@ import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryModule, NgxGalleryOptio
 })
 export class DetailPropetyComponent implements OnInit {
   public propertyId: number;
+  public mainPhotoUrl: string = null;
   property = new Property();
 
   galleryOptions: NgxGalleryOptions[];
@@ -28,6 +29,7 @@ export class DetailPropetyComponent implements OnInit {
     this.housingService.getProperty(this.propertyId).subscribe(
       (data: Property) => {
         this.property = data;
+        console.log(this.property.image)
       }, error => {
         console.log('http errors');
         console.log(Error);
@@ -78,7 +80,7 @@ export class DetailPropetyComponent implements OnInit {
         previewCloseOnEsc: true,
         previewCloseOnClick: true,
         previewAutoPlay: true,
-  
+
       },
       // max-width 800
       {
@@ -97,32 +99,32 @@ export class DetailPropetyComponent implements OnInit {
       }
     ];
 
-    this.galleryImages = [
-      {
-        small: 'assets/image/villa-1.webp',
-        medium: 'assets/image/villa-1.webp',
-        big: 'assets/image/villa-1.webp'
-      },
-      {
-        small: 'assets/image/villa-2.webp',
-        medium: 'assets/image/villa-2.webp',
-        big: 'assets/image/villa-2.webp'
-      },
-      {
-        small: 'assets/image/villa-3.webp',
-        medium: 'assets/image/villa-3.webp',
-        big: 'assets/image/villa-3.webp'
-      },{
-        small: 'assets/image/villa-4.webp',
-        medium: 'assets/image/villa-4.webp',
-        big: 'assets/image/villa-4.webp'
-      },
-      {
-        small: 'assets/image/villa-5.webp',
-        medium: 'assets/image/villa-5.webp',
-        big: 'assets/image/villa-5.webp'
-      }
-    ];
+    this.galleryImages = this.getPropertyPhotos();
+      // {
+      //   small: 'assets/image/villa-1.webp',
+      //   medium: 'assets/image/villa-1.webp',
+      //   big: 'assets/image/villa-1.webp'
+      // },
+      // {
+      //   small: 'assets/image/villa-2.webp',
+      //   medium: 'assets/image/villa-2.webp',
+      //   big: 'assets/image/villa-2.webp'
+      // },
+      // {
+      //   small: 'assets/image/villa-3.webp',
+      //   medium: 'assets/image/villa-3.webp',
+      //   big: 'assets/image/villa-3.webp'
+      // },{
+      //   small: 'assets/image/villa-4.webp',
+      //   medium: 'assets/image/villa-4.webp',
+      //   big: 'assets/image/villa-4.webp'
+      // },
+      // {
+      //   small: 'assets/image/villa-5.webp',
+      //   medium: 'assets/image/villa-5.webp',
+      //   big: 'assets/image/villa-5.webp'
+      // }
+    // ];
   }
   OnSelectNext() {
 
@@ -130,5 +132,22 @@ export class DetailPropetyComponent implements OnInit {
     this.router.navigate(['info-propety/',this.propertyId])
   }
 
-
+  getPropertyPhotos(): NgxGalleryImage[] {
+    const photoUrls: NgxGalleryImage[] = [];
+    for (const image of this.property?.image) {
+      console.log(image)
+      if (image.isPrimary) {
+        this.mainPhotoUrl = image.imageUrl;
+      } else {
+        photoUrls.push(
+          {
+            small: image.imageUrl,
+            medium: image.imageUrl,
+            big: image.imageUrl
+          }
+        );
+      }
+    }
+    return photoUrls;
+}
 }

@@ -9,19 +9,26 @@ using System.Threading.Tasks;
 using WebAPIS.DTOS;
 using WebAPIS.Interfaces;
 using WebAPIS.Models;
+using System.Security.Claims;
 
 namespace WebAPIS.Controller
 {
-   // [Route("api_Property/[controller]")]
-    //[ApiController]
-    public class PropertyController : BaseController
+    [Route("api_Property/[controller]")]
+    [ApiController]
+    public class PropertyController : ControllerBase
     {
+        protected int GetUserID()
+        {
+            return int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        }
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
-        public PropertyController (IUnitOfWork uow ,IMapper mapper)
+        private readonly IPhotoService photoService;
+        public PropertyController (IUnitOfWork uow ,IMapper mapper , IPhotoService photoService)
         {
             this.mapper = mapper;
             this.uow = uow;
+            this.photoService = photoService;
         }
         [HttpGet("List/{sellRent}")]
         [AllowAnonymous]
@@ -51,26 +58,36 @@ namespace WebAPIS.Controller
             var property = mapper.Map<Property>(propertyDto);
             var userID = GetUserID();
             property.PostedBy = userID;
-            property.LastUpdatedBy = 1;
+            property.LastUpdatedBy = userID;
             uow.propertyRepository.AddProperty(property);
             await uow.SaveAsync();
             return StatusCode(201);
         }
-        //property/add
-        //[HttpPost("add")]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> AddProperty(PropertyDto propertyDto)
-        //{
+        [HttpPost("ADD-list/photo/{id}")]
+        [Authorize]
+        public async Task<IActionResult> AddPropertyPhoto(IFormFile file ,int ID)
+        {
+            var res = await photoService.UploadPhotoAsync(file);
+            if (res.Error != null)
+            {
+                return BadRequest(res.Error.Message);
 
-        //    var property = mapper.Map<Property>(propertyDto);
-        //     property.PostedBy = 1;
-        //        property.LastUpdatedBy = 1;
-        //        uow.propertyRepository.AddProperty(property);
-        //        await uow.SaveAsync();
-
-
-        //    return StatusCode(201);
-        //}
+            }
+            var property = await uow.propertyRepository.GetPropertyByIdAsync(ID);
+            var photo = new Photo
+            {
+                ImageUrl = res.SecureUrl.AbsoluteUri,
+                publicID = res.PublicId
+            };
+            if (property.Image.Count == 0)
+            {
+                photo.IsPrimary = true;
+            }
+            property.Image.Add(photo);
+            await uow.SaveAsync();
+           
+            return StatusCode(201);
+        }
 
     }
 }

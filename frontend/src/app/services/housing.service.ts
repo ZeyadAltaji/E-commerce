@@ -13,7 +13,7 @@ export class HousingService {
   baseUrl = environment.baseUrlGetProp;
   baseUrlTy = environment.baseURlpropType;
   baseUrlFurnishingType = environment.baseUrlFurnishingType;
-  baseadd = environment.baseUrladd;
+   baseadd = environment.baseUrladd;
   constructor(private http: HttpClient) { }
 
   getallcities(): Observable<string[]> {
@@ -26,8 +26,8 @@ export class HousingService {
     return this.http.get<IKeyValuePair[]>(this.baseUrlFurnishingType+'/FurnishingType/list');
   }
   getProperty(id: number) {
-    // return this.http.get<Property>(this.baseUrl + 'Property/Detail/' + id.toString());
     return this.http.get<Property>(this.baseUrl + '/Property/Detail/' + id.toString());
+    // return this.http.get<Property>(this.baseUrl + '/Property/Detail/'+Id.toString());
 
 
 
@@ -67,12 +67,19 @@ export class HousingService {
 }
   addProperty(property: Property) {
     const httpOptions = {
-      Headers: new HttpHeaders({
-        Authorization: 'Bearer' + localStorage.getItem('token')
+      headers: new HttpHeaders({
+          Authorization: 'Bearer '+ localStorage.getItem('token')
       })
+  };
+  return this.http.post(this.baseadd + '/Property/ADD-list', property, httpOptions);
 
-    };
-    return this.http.post(this.baseadd + '/property/ADD-list', property, httpOptions);
+    // const httpOptions = {
+    //   Headers: new HttpHeaders({
+    //     Authorization: 'Bearer' + localStorage.getItem('token')
+    //   })
+
+    // };
+    // return this.http.post(this.baseUrlTy + '/property/ADD-list', property);
 
     // return this.http.post(this.baseadd + '/Property/add', property, httpOptions);
     // let newProp = [property];

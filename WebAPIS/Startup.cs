@@ -17,6 +17,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebAPIS.Services;
 
 namespace WebAPIS
 {
@@ -37,6 +38,7 @@ namespace WebAPIS
             services.AddCors();
             services.AddAutoMapper(typeof(AutomapperPropfiles).Assembly);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPhotoService, PhotoService>();
             var secretkey = Configuration.GetSection("AppSettings:Key").Value;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretkey));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>

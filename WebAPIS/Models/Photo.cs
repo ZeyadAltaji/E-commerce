@@ -11,7 +11,8 @@ namespace WebAPIS.Models
 
     public class Photo : BaseEntity
     {
- 
+        [Required]
+        public string publicID { get; set; }
         [Required]
         public string ImageUrl { get; set; }
 

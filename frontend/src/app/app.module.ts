@@ -36,15 +36,16 @@ const appRoutes: Routes = [
   },
   {
     path: 'info-propety/:id',
-    component: DetailPropetyComponent
-  },
-  {
-    path: 'rent-propety',
-    component: PropertyListComponent,
+    component: DetailPropetyComponent,
     resolve:
     {
       prp:DetailPropetyResolverService
     }
+  },
+  {
+    path: 'rent-propety',
+    component: PropertyListComponent,
+
   },
   {
     path: 'add-propety',
