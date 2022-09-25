@@ -24,118 +24,56 @@ export class DetailPropetyComponent implements OnInit {
     private housingService: HousingService) { }
 
   ngOnInit() {
+      this.propertyId = +this.route.snapshot.params['id'];
+      this.route.data.subscribe(
+          (data: Property) => {
+              this.property = data['prp'];
+              console.log(this.property.image);
+          }, error => {
+                  console.log('http errors');
+                  console.log(Error);
+                }
+      );
 
-    this.propertyId = +this.route.snapshot.params['id'];
-    this.housingService.getProperty(this.propertyId).subscribe(
-      (data: Property) => {
-        this.property = data;
-        console.log(this.property.image)
-      }, error => {
-        console.log('http errors');
-        console.log(Error);
-      }
-    );
-    this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn)
-
-
-
-    // this.propID = this.route.snapshot.params['id'];
-    // // this.route.data.subscribe(
-    // //   (data: Property) => {
-    // //     this.property = data['prp']
-    // //   }
-    // // );
-
-    // this.housingService.getProperty(this.propID).subscribe(
-    //   (data: Property) => {
-    //     this.property = data['prp'];
-    //     console.log(data);
-    //   }, error => {
-    //     console.log('http errors');
-    //     console.log(Error);
-    //   }
-    // );
+      this.property.age = this.housingService.getPropertyAge(this.property.estPossessionOn);
 
 
-    // this.route.params.subscribe(
-    //   (params) => {
-    //     this.propID = +params['id'];
-    //     this.housingService.getprop(this.propID).subscribe(
-    //       (data:Property) => {
-    //         this.property= data;
-    //       },error => {
-    //           this.router.navigate(['/'])
-    //       }
 
-    //     )
-    //   }
-    // )
-    this.galleryOptions = [
-      {
-        width: '100%',
-        height: '465px',
-        thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-        preview: true,
-        previewCloseOnEsc: true,
-        previewCloseOnClick: true,
-        previewAutoPlay: true,
+      this.galleryOptions = [
+          {
+            width: '100%',
+            height: '465px',
+            thumbnailsColumns: 4,
+            imageAnimation: NgxGalleryAnimation.Slide,
+            preview: true,
+            previewCloseOnEsc: true,
+            previewCloseOnClick: true,
+            previewAutoPlay: true,
 
-      },
-      // max-width 800
-      {
-        breakpoint: 800,
-        width: '100%',
-        height: '600px',
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20
-      },
-      // max-width 400
-      {
-        breakpoint: 400,
-        preview: false
-      }
-    ];
+          },
+          // max-width 800
+          {
+            breakpoint: 800,
+            width: '100%',
+            height: '600px',
+            imagePercent: 80,
+            thumbnailsPercent: 20,
+            thumbnailsMargin: 20,
+            thumbnailMargin: 20
+          },
+          // max-width 400
+          {
+            breakpoint: 400,
+            preview: false
+          }
 
-    this.galleryImages = this.getPropertyPhotos();
-      // {
-      //   small: 'assets/image/villa-1.webp',
-      //   medium: 'assets/image/villa-1.webp',
-      //   big: 'assets/image/villa-1.webp'
-      // },
-      // {
-      //   small: 'assets/image/villa-2.webp',
-      //   medium: 'assets/image/villa-2.webp',
-      //   big: 'assets/image/villa-2.webp'
-      // },
-      // {
-      //   small: 'assets/image/villa-3.webp',
-      //   medium: 'assets/image/villa-3.webp',
-      //   big: 'assets/image/villa-3.webp'
-      // },{
-      //   small: 'assets/image/villa-4.webp',
-      //   medium: 'assets/image/villa-4.webp',
-      //   big: 'assets/image/villa-4.webp'
-      // },
-      // {
-      //   small: 'assets/image/villa-5.webp',
-      //   medium: 'assets/image/villa-5.webp',
-      //   big: 'assets/image/villa-5.webp'
-      // }
-    // ];
+      ];
+
+      this.galleryImages = this.getPropertyPhotos();
   }
-  OnSelectNext() {
-
-    this.propertyId += 1;
-    this.router.navigate(['info-propety/',this.propertyId])
-  }
-
   getPropertyPhotos(): NgxGalleryImage[] {
     const photoUrls: NgxGalleryImage[] = [];
-    for (const image of this.property?.image) {
-      console.log(image)
+    for (let image of  this.property.image) {
       if (image.isPrimary) {
         this.mainPhotoUrl = image.imageUrl;
       } else {
@@ -148,6 +86,11 @@ export class DetailPropetyComponent implements OnInit {
         );
       }
     }
-    return photoUrls;
-}
+    return photoUrls
+  }
+  OnSelectNext() {
+
+    this.propertyId += 1;
+    this.router.navigate(['info-propety/',this.propertyId])
+  }
 }

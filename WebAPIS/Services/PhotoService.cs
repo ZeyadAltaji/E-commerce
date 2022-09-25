@@ -23,7 +23,7 @@ namespace WebAPIS.Services
                 config.GetSection("CloudinarySettings:ApiSecret").Value);
 
                      cloudinary = new Cloudinary(account);
-                     cloudinary.Api.Secure = true;
+                    //  cloudinary.Api.Secure = true;
 
             //Account account = new Account(
             //            "my_cloud_name"="zjisda",
