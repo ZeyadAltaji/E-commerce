@@ -94,8 +94,8 @@ namespace WebAPIS.Controller
         {
             var userID = GetUserID();
             var property = await uow.propertyRepository.GetPropertyByIdAsync(ID);
-           if (property.PostedBy != userID)
-              return BadRequest("You are not authorised to change the photo");
+            if (property.PostedBy != userID)
+                return BadRequest("You are not authorised to change the photo");
             if (property == null || property.PostedBy != userID)
                 return BadRequest("No such property or photo exists");
             var photo = property.Image.FirstOrDefault(p => p.publicID == photoPublicId);
@@ -113,6 +113,34 @@ namespace WebAPIS.Controller
 
             return BadRequest("Failed to set primary photo");
 
+        }
+        [HttpDelete("delete-photo/{id}/{photoPublicId}")]
+        [Authorize]
+        public async Task<IActionResult> DeletePhoto(int ID, string photoPublicId)
+        {
+
+            var userID = GetUserID();
+            var property = await uow.propertyRepository.GetPropertyByIdAsync(ID);
+            if (property.PostedBy != userID)
+                return BadRequest("You are not authorised to delete the photo");
+            if (property == null || property.PostedBy != userID)
+                return BadRequest("No such property or photo exists");
+            var photo = property.Image.FirstOrDefault(p => p.publicID == photoPublicId);
+            if (photo == null)
+                return BadRequest("No such property or photo exists");
+            if (photo.IsPrimary)
+                return BadRequest("You can not delete primary photo");
+            if (photo.publicID != null)
+            {
+                var result = await photoService.DeletePhotoAsync(photo.publicID);
+                if (result.Error != null) return BadRequest(result.Error.Message);
+            }
+
+            property.Image.Remove(photo);
+            if (await uow.SaveAsync())
+                return Ok();
+
+            return BadRequest("Failed to set primary photo");
         }
     }
 }
