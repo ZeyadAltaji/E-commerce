@@ -42,7 +42,7 @@ namespace WebAPIS.Data.Reop
             var prop = await dc.Properties
 
                       .Include(p => p.Image)
-                      .Where(p => p.ID == id).FirstAsync();
+                      .Where(p => p.ID == id).FirstOrDefaultAsync();
             return prop;
         }
 
