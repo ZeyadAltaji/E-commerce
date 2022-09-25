@@ -32,7 +32,7 @@ namespace WebAPIS.Data.Reop
             .Include(p=>p.Ptype)
             .Include(p => p.city)
             .Include(p => p.Ftype)
-            .Include(p=>p.Images)
+            .Include(p => p.Image)
             .Where(p =>p.SellRent ==SellRent ).ToListAsync();
             return prop;
         }
@@ -40,8 +40,8 @@ namespace WebAPIS.Data.Reop
         public async Task<Property> GetPropertyByIdAsync(int id)
         {
             var prop = await dc.Properties
-                     
-                      .Include(p => p.Images)
+
+                      .Include(p => p.Image)
                       .Where(p => p.ID == id).FirstAsync();
             return prop;
         }
@@ -52,7 +52,7 @@ namespace WebAPIS.Data.Reop
             .Include(p => p.Ptype)
             .Include(p => p.city)
             .Include(p => p.Ftype)
-            .Include(p => p.Images)
+                      .Include(p => p.Image)
             .Where(p => p.ID == ID).FirstAsync();
             return prop;
         }

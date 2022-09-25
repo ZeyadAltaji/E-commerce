@@ -8,7 +8,7 @@ using WebAPIS.Models;
 
 namespace WebAPIS.Helpers
 {
-    public class AutomapperPropfiles :Profile
+    public class AutomapperPropfiles : Profile
     {
         public AutomapperPropfiles()
         {
@@ -22,7 +22,7 @@ namespace WebAPIS.Helpers
                 .ForMember(d => d.Country, opt => opt.MapFrom(src => src.city.country))
                 .ForMember(d => d.Ptype, opt => opt.MapFrom(src => src.Ptype.Name))
                 .ForMember(d => d.Ftype, opt => opt.MapFrom(src => src.Ftype.Name))
-                .ForMember(d=>d.Images, opt=>opt.MapFrom(src=>src.Images.FirstOrDefault(p=>p.IsPrimary).ImageUrl));
+                .ForMember(d => d.Images, opt => opt.MapFrom(src => src.Image.FirstOrDefault(p => p.IsPrimary).ImageUrl));
 
 
 
@@ -31,8 +31,8 @@ namespace WebAPIS.Helpers
                 .ForMember(d => d.Country, opt => opt.MapFrom(src => src.city.country))
                 .ForMember(d => d.Ptype, opt => opt.MapFrom(src => src.Ptype.Name))
                 .ForMember(d => d.Ftype, opt => opt.MapFrom(src => src.Ftype.Name));
-           
- 
+
+
             CreateMap<FurnishingType, KeyValuePairDto>();
             CreateMap<PropertyType, KeyValuePairDto>();
 

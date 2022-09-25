@@ -24,7 +24,7 @@ namespace WebAPIS.Controller
         private readonly IUnitOfWork uow;
         private readonly IMapper mapper;
         private readonly IPhotoService photoService;
-        public PropertyController (IUnitOfWork uow ,IMapper mapper , IPhotoService photoService)
+        public PropertyController(IUnitOfWork uow, IMapper mapper, IPhotoService photoService)
         {
             this.mapper = mapper;
             this.uow = uow;
@@ -35,7 +35,7 @@ namespace WebAPIS.Controller
 
         public async Task<IActionResult> GetPropertyList(int sellRent)
         {
-            var prop= await uow.propertyRepository.GetPropertiesAsync(sellRent);
+            var prop = await uow.propertyRepository.GetPropertiesAsync(sellRent);
             var proplistDTO = mapper.Map<IEnumerable<PropertyListDto>>(prop);
             return Ok(proplistDTO);
         }
@@ -47,7 +47,7 @@ namespace WebAPIS.Controller
         {
             var property = await uow.propertyRepository.GetPropertyDetailAsync(ID);
             var propDTO = mapper.Map<PropertyDetailDto>(property);
-            
+
             return Ok(propDTO);
         }
         [HttpPost("ADD-list")]
@@ -65,7 +65,7 @@ namespace WebAPIS.Controller
         }
         [HttpPost("ADD-list/photo/{id}")]
         [Authorize]
-        public async Task<IActionResult> AddPropertyPhoto(IFormFile file ,int ID)
+        public async Task<IActionResult> AddPropertyPhoto(IFormFile file, int ID)
         {
             var res = await photoService.UploadPhotoAsync(file);
             if (res.Error != null)
@@ -79,15 +79,15 @@ namespace WebAPIS.Controller
                 ImageUrl = res.SecureUrl.AbsoluteUri,
                 publicID = res.PublicId
             };
-            if (property.Images.Count == 0)
+            if (property.Image.Count == 0)
             {
                 photo.IsPrimary = true;
             }
-            property.Images.Add(photo);
+            property.Image.Add(photo);
             await uow.SaveAsync();
-           
+
             return StatusCode(201);
         }
-
+ 
     }
 }
