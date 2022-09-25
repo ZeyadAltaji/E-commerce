@@ -21,7 +21,8 @@ namespace WebAPIS.Helpers
                 .ForMember(d => d.City, opt => opt.MapFrom(src => src.city.Name))
                 .ForMember(d => d.Country, opt => opt.MapFrom(src => src.city.country))
                 .ForMember(d => d.Ptype, opt => opt.MapFrom(src => src.Ptype.Name))
-                .ForMember(d => d.Ftype, opt => opt.MapFrom(src => src.Ftype.Name));
+                .ForMember(d => d.Ftype, opt => opt.MapFrom(src => src.Ftype.Name))
+                .ForMember(d=>d.Images, opt=>opt.MapFrom(src=>src.Images.FirstOrDefault(p=>p.IsPrimary).ImageUrl));
 
 
 

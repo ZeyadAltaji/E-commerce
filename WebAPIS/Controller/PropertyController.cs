@@ -79,11 +79,11 @@ namespace WebAPIS.Controller
                 ImageUrl = res.SecureUrl.AbsoluteUri,
                 publicID = res.PublicId
             };
-            if (property.Image.Count == 0)
+            if (property.Images.Count == 0)
             {
                 photo.IsPrimary = true;
             }
-            property.Image.Add(photo);
+            property.Images.Add(photo);
             await uow.SaveAsync();
            
             return StatusCode(201);

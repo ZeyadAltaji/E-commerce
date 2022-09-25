@@ -18,7 +18,7 @@ namespace WebAPIS.DTOS
         public string City { get; set; }
         public string Country { get; set; }
         public bool ReadyToMove { get; set; }
-        public string Image { get; set; }
+        public string Images { get; set; }
 
     }
 }
